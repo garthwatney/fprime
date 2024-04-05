@@ -1,0 +1,4 @@
+After building from the top level
+> ./genRespCode.py
+> fprime-util check -d ../../Ref
+

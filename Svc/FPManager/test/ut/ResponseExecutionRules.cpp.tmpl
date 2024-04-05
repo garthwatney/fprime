@@ -1,0 +1,419 @@
+\#include "Tester.hpp"
+\#include "ResponseExecutionRules.hpp"
+\#include "Svc/FPManager/FPManagerImpl.hpp"
+
+#for $response in $responseList:
+\#include "Svc/FPManager/$(list(response.keys())[0]).hpp"
+#end for
+
+\#include "Svc/FPManager/CommandSerializer.hpp"
+\#include <Fw/Test/UnitTest.hpp>
+\#include "Svc/FPManager/FPResponses.hpp"
+
+
+
+namespace Svc {
+
+
+// ----------------------------------------------------------------------
+// Test Cases
+// ----------------------------------------------------------------------
+
+void Tester ::
+   executeResponses(void)
+ {
+     TEST_CASE(6400.1.1,"Execute Responses");
+
+     // Instantiate the Rules
+     #for $response in $responseList:
+         #set $resp = list($response.keys())[0]
+         Execute$resp execute$resp;
+     #end for
+
+     // Run the Rules
+     #for $response in $responseList:
+         #set $resp = list($response.keys())[0]
+         execute$(resp).apply(*this);
+     #end for
+
+ }
+ 
+ void Tester ::
+   indicateResponsesDisabled(void)
+ {
+     TEST_CASE(6400.1.2,"Indicate Responses when Disabled");
+
+
+     // Instantiate the Rules
+     #for $response in $responseList:
+         #set $resp = list($response.keys())[0]
+         Indicate$(resp)DroppedDisbled indicate$(resp)DroppedDisabled;
+     #end for
+
+     // Run the Rules
+     #for $response in $responseList:
+         #set $resp = list($response.keys())[0]
+         indicate$(resp)DroppedDisabled.apply(*this);
+     #end for
+
+ }
+ 
+ void Tester ::
+   indicateResponsesQueued(void)
+ {
+     TEST_CASE(6400.1.3,"Indicate Responses when Queued");
+
+
+     // Instantiate the Rules
+     #for $response in $responseList:
+         #set $resp = list($response.keys())[0]
+         Indicate$(resp)DroppedQueued indicate$(resp)DroppedQueued;
+     #end for
+
+     // Run the Rules
+     #for $response in $responseList:
+         #set $resp = list($response.keys())[0]
+         indicate$(resp)DroppedQueued.apply(*this);
+     #end for
+
+ }
+ 
+ 
+void Tester ::
+   indicateResponsesExecuting(void)
+ {
+     TEST_CASE(6400.1.,"Indicate Responses when already executing");
+
+
+     // Instantiate the Rules
+     #for $response in $responseList:
+         #set $resp = list($response.keys())[0]
+         Indicate$(resp)DroppedExecuting indicate$(resp)DroppedExecuting;
+     #end for
+
+     // Run the Rules
+     #for $response in $responseList:
+         #set $resp = list($response.keys())[0]
+         indicate$(resp)DroppedExecuting.apply(*this);
+     #end for
+
+     
+ }
+ 
+
+// ----------------------------------------------------------------------
+// Rules
+// ----------------------------------------------------------------------
+  
+#for $response in $responseList:
+    #set $resp = list($response.keys())[0]
+
+Execute$resp::Execute$(resp)() :
+       STest::Rule<Svc::Tester>("Execute$(resp)")
+{
+
+}
+
+bool Execute$resp::precondition(const Tester& tester) {
+    return (true);
+}
+
+void Execute$resp::action(Tester& tester) {
+    Fw::ComBuffer comBuffer, returnedBuffer;
+    Fw::SerializeStatus status;
+    Fw::Time time;
+
+    tester.clearHistory();
+
+    // Send Enable $resp response command
+    tester.sendCmd_FP_RESPONSE_ID_ON_OFF(0, 0, FPResponses::$resp.upper(), RespEnableState::RID_ENABLE);
+    tester.dispatchAll();
+    tester.checkCmdOK(tester.component.OPCODE_FP_RESPONSE_ID_ON_OFF);
+    tester.clearHistory();
+
+    // Send Execute $resp response command
+    tester.sendCmd_FP_EXECUTE_FAULT_RESPONSE(0, 0, FPResponses::$resp.upper());
+    tester.dispatchAll();
+    tester.checkCmdOK(tester.component.OPCODE_FP_EXECUTE_FAULT_RESPONSE);
+    
+    // Check EVR that $resp has queued
+    tester.assertEvents_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_IN_QUEUE_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_IN_QUEUE(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+    tester.clearHistory();
+
+    // Run 1 iteration
+    tester.invoke_to_Run(0, 0);
+    tester.dispatchAll();
+
+    // Check EVR that $resp response has started
+    tester.assertEvents_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_STARTED_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_STARTED(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+    
+    #set $cmds = list($response.values())[0]
+    #set $cmdNumber = 1
+    #for $cmd in $cmds:
+    #set rcmd = cmd
+        
+    // Check command #$cmdNumber for $resp response
+    tester.clearHistory();
+    tester.invoke_to_Run(0, 0);
+    tester.dispatchAll();
+    ASSERT_EQ(tester.fromPortHistory_comCmdOut->size(), 1);
+    returnedBuffer = tester.fromPortHistory_comCmdOut->at(0).data;
+    
+    
+      #if "CURRENT_TIME" in cmd:
+  
+      #try:
+          #set timeArg = cmd.split('(')[1].split(',')[0]
+          #set delta = timeArg.split('+')[1]
+      #except:
+          #set delta = '0'
+      #end try
+  
+      days = time.getDays();
+      msecs = time.getMilliseconds() + $delta;
+      usecs = time.getMicroseconds();
+
+      // Load the time data little endian
+      timeMsg[0] = (days & 0xFF00) >> 8;
+      timeMsg[1] = (days & 0x00FF);
+      timeMsg[2] = (msecs & 0xFF000000) >> 24;
+      timeMsg[3] = (msecs & 0x00FF0000) >> 16;
+      timeMsg[4] = (msecs & 0x0000FF00) >> 8;
+      timeMsg[5] = (msecs & 0x000000FF);
+      timeMsg[6] = (usecs & 0xFF00) >> 8;
+      timeMsg[7] = (usecs & 0x00FF);
+      
+      #set rcmd = cmd.replace($timeArg, "timeMsg[0], timeMsg[1], timeMsg[2], timeMsg[3], timeMsg[4], timeMsg[5], timeMsg[6], timeMsg[7]")
+      
+      #end if
+    
+    
+    status = CommandSerializer::$rcmd;  
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK);
+    ASSERT_EQ(comBuffer, returnedBuffer);
+    
+    #set $cmdNumber = $cmdNumber + 1
+    #end for
+
+
+    // Check no more $resp commands
+    tester.clearHistory();
+    tester.invoke_to_Run(0, 0);
+    tester.dispatchAll();
+    ASSERT_EQ(tester.fromPortHistory_comCmdOut->size(), 0);
+
+    // Check EVR that $resp response has completed
+     tester.assertEvents_size(__FILE__, __LINE__, 1);
+     tester.assertEvents_FP_RESPONSE_COMPLETED_size(__FILE__, __LINE__, 1);
+     tester.assertEvents_FP_RESPONSE_COMPLETED(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+
+     // Check telemetry response completion counter
+     tester.assertTlm_size(__FILE__, __LINE__, 3);
+     tester.assertTlm_FP_$(resp)CompleteCount(__FILE__, __LINE__, 0, 1);
+     tester.assertTlm_FP_LastResponseComplete(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+
+}
+
+Indicate$(resp)DroppedDisbled::Indicate$(resp)DroppedDisbled() :
+       STest::Rule<Svc::Tester>("Indicate$(resp)DroppedDisbled")
+{
+    
+}
+
+bool Indicate$(resp)DroppedDisbled::precondition(const Tester& tester) {
+    return (true);
+}
+
+void Indicate$(resp)DroppedDisbled::action(Tester& tester) {
+
+    tester.clearHistory();
+
+    // Send clear command to clear all the FP counters
+    tester.sendCmd_FP_RESET_COUNTERS(0, 0);
+    tester.dispatchAll();
+    tester.checkCmdOK(tester.component.OPCODE_FP_RESET_COUNTERS);
+    tester.clearHistory();
+
+
+    // Enable all the responses
+     tester.sendCmd_FP_ALL_RESPONSE_IDS_ON_OFF(0, 0, RespAllEnableState::RID_ENABLE_ALL);
+     tester.dispatchAll();
+     tester.checkCmdOK(tester.component.OPCODE_FP_ALL_RESPONSE_IDS_ON_OFF);
+     tester.clearHistory();
+
+    // Send Disable $resp response command
+    tester.sendCmd_FP_RESPONSE_ID_ON_OFF(0, 0, FPResponses::$resp.upper(), RespEnableState::RID_DISABLE);
+    tester.dispatchAll();
+    tester.checkCmdOK(tester.component.OPCODE_FP_RESPONSE_ID_ON_OFF);
+    tester.clearHistory();
+
+    // Send $resp indication
+    tester.invoke_to_ResponseIn(0, FPResponses::$resp.upper());
+    tester.dispatchAll();
+
+    // Check EVR that $resp was dropped because the response is disabled
+    tester.assertEvents_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_DROPPED_DISABLED_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_DROPPED_DISABLED(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+
+    // Check telemetry response indication counter
+    tester.assertTlm_size(__FILE__, __LINE__, 2);
+    tester.assertTlm_FP_$(resp)AlertCount(__FILE__, __LINE__, 0, 1);
+    tester.assertTlm_FP_LastResponseAlert(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+
+}
+
+Indicate$(resp)DroppedQueued::Indicate$(resp)DroppedQueued() :
+       STest::Rule<Svc::Tester>("Indicate$(resp)DroppedQueued")
+{
+    
+}
+
+bool Indicate$(resp)DroppedQueued::precondition(const Tester& tester) {
+    return (true);
+}
+
+void Indicate$(resp)DroppedQueued::action(Tester& tester) {
+
+    tester.clearHistory();
+
+    // Send clear command to clear all the FP counters
+    tester.sendCmd_FP_RESET_COUNTERS(0, 0);
+    tester.dispatchAll();
+    tester.checkCmdOK(tester.component.OPCODE_FP_RESET_COUNTERS);
+    tester.clearHistory();
+
+
+    // Disable all the responses
+     tester.sendCmd_FP_ALL_RESPONSE_IDS_ON_OFF(0, 0, RespAllEnableState::RID_DISABLE_ALL);
+     tester.dispatchAll();
+     tester.checkCmdOK(tester.component.OPCODE_FP_ALL_RESPONSE_IDS_ON_OFF);
+     tester.clearHistory();
+
+    // Send Enable $resp response command
+    tester.sendCmd_FP_RESPONSE_ID_ON_OFF(0, 0, FPResponses::$resp.upper(), RespEnableState::RID_ENABLE);
+    tester.dispatchAll();
+    tester.checkCmdOK(tester.component.OPCODE_FP_RESPONSE_ID_ON_OFF);
+    tester.clearHistory();
+
+    // Send $resp indication
+    tester.invoke_to_ResponseIn(0, FPResponses::$resp.upper());
+    tester.dispatchAll();
+
+    // Check EVR that $resp was placed in the queue
+    tester.assertEvents_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_IN_QUEUE_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_IN_QUEUE(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+
+    // Check telemetry response indication counter
+    tester.assertTlm_size(__FILE__, __LINE__, 2);
+    tester.assertTlm_FP_$(resp)AlertCount(__FILE__, __LINE__, 0, 1);
+    tester.assertTlm_FP_LastResponseAlert(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+
+    tester.clearHistory();
+
+    // Send $resp indication again
+    tester.invoke_to_ResponseIn(0, FPResponses::$resp.upper());
+    tester.dispatchAll();
+
+    // Check EVR that $resp was dropped because the response is already queued
+    tester.assertEvents_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_DROPPED_QUEUED_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_DROPPED_QUEUED(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+
+    // Check telemetry response indication counter
+    tester.assertTlm_size(__FILE__, __LINE__, 2);
+    tester.assertTlm_FP_$(resp)AlertCount(__FILE__, __LINE__, 0, 2);
+    tester.assertTlm_FP_LastResponseAlert(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+    
+    // Flush the queue and bring all responses back to quiescent state
+    do {
+        tester.invoke_to_Run(0, 0);
+        tester.dispatchAll();
+    } while (tester.component.fpState != FPManagerImpl::IDLE);
+
+}
+
+Indicate$(resp)DroppedExecuting::Indicate$(resp)DroppedExecuting() :
+       STest::Rule<Svc::Tester>("Indicate$(resp)DroppedExecuting")
+{
+    
+}
+
+bool Indicate$(resp)DroppedExecuting::precondition(const Tester& tester) {
+    return (true);
+}
+
+void Indicate$(resp)DroppedExecuting::action(Tester& tester) {
+
+    tester.clearHistory();
+
+    // Send clear command to clear all the FP counters
+    tester.sendCmd_FP_RESET_COUNTERS(0, 0);
+    tester.dispatchAll();
+    tester.checkCmdOK(tester.component.OPCODE_FP_RESET_COUNTERS);
+    tester.clearHistory();
+
+
+    // Disable all the responses
+     tester.sendCmd_FP_ALL_RESPONSE_IDS_ON_OFF(0, 0, RespAllEnableState::RID_DISABLE_ALL);
+     tester.dispatchAll();
+     tester.checkCmdOK(tester.component.OPCODE_FP_ALL_RESPONSE_IDS_ON_OFF);
+     tester.clearHistory();
+
+    // Send Enable $resp response command
+    tester.sendCmd_FP_RESPONSE_ID_ON_OFF(0, 0, FPResponses::$resp.upper(), RespEnableState::RID_ENABLE);
+    tester.dispatchAll();
+    tester.checkCmdOK(tester.component.OPCODE_FP_RESPONSE_ID_ON_OFF);
+    tester.clearHistory();
+
+    // Send $resp indication
+    tester.invoke_to_ResponseIn(0, FPResponses::$resp.upper());
+    tester.dispatchAll();
+    
+    // Check EVR that $resp response has queued
+    tester.assertEvents_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_IN_QUEUE_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_IN_QUEUE(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+
+    tester.clearHistory();
+    tester.invoke_to_Run(0, 0);
+    tester.dispatchAll();
+
+    // Check EVR that $resp response has started
+    tester.assertEvents_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_STARTED_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_STARTED(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+
+    // Send $resp indication again
+    tester.invoke_to_ResponseIn(0, FPResponses::$resp.upper());
+    tester.dispatchAll();
+
+    // Check EVR that $resp was dropped because the response is running (same EVR as if it was queued)
+    tester.assertEvents_size(__FILE__, __LINE__, 2);
+    tester.assertEvents_FP_RESPONSE_DROPPED_QUEUED_size(__FILE__, __LINE__, 1);
+    tester.assertEvents_FP_RESPONSE_DROPPED_QUEUED(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+
+
+    // Check telemetry response indication counter
+    tester.assertTlm_size(__FILE__, __LINE__, 3);
+    // Count should now be 2.
+    tester.assertTlm_FP_$(resp)AlertCount(__FILE__, __LINE__, 0, 2);
+    tester.assertTlm_FP_LastResponseAlert(__FILE__, __LINE__, 0, FPResponses::$resp.upper());
+    
+    // Flush the queue and bring all responses back to quiescent state
+    do {
+        tester.invoke_to_Run(0, 0);
+        tester.dispatchAll();
+    } while (tester.component.fpState != FPManagerImpl::IDLE);
+
+}
+
+
+#end for
+
+}

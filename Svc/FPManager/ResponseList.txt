@@ -1,0 +1,3 @@
+RESP_1                 LOW_PRIORITY
+RESP_2                 HIGH_PRIORITY
+SAFING                 LOW_PRIORITY

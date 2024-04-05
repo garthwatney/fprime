@@ -1,0 +1,29 @@
+# F prime CMakeLists.txt:
+# SOURCE_FILES: combined list of source and autocoding diles
+# MOD_DEPS: (optional) module dependencies
+# Note: using PROJECT_NAME as EXECUTABLE_NAME
+set(SOURCE_FILES
+  "${CMAKE_CURRENT_LIST_DIR}/FPManager.fpp"
+  "${CMAKE_CURRENT_LIST_DIR}/TlmDict.fppi"
+  "${CMAKE_CURRENT_LIST_DIR}/FPManagerImpl.cpp"
+  "${CMAKE_CURRENT_LIST_DIR}/Response.cpp"
+  "${CMAKE_CURRENT_LIST_DIR}/CommandSerializer.cpp"
+  "${CMAKE_CURRENT_LIST_DIR}/FPResponseTable.cpp"
+
+     "${CMAKE_CURRENT_LIST_DIR}/RESP_1.cpp"
+     "${CMAKE_CURRENT_LIST_DIR}/RESP_2.cpp"
+     "${CMAKE_CURRENT_LIST_DIR}/SAFING.cpp"
+
+)
+
+register_fprime_module()
+# 
+set(UT_SOURCE_FILES
+  "${CMAKE_CURRENT_LIST_DIR}/FPManager.fpp"
+  "${CMAKE_CURRENT_LIST_DIR}/test/ut/Tester.cpp"
+  "${CMAKE_CURRENT_LIST_DIR}/test/ut/TestMain.cpp"
+  "${CMAKE_CURRENT_LIST_DIR}/test/ut/ResponseExecutionRules.cpp"
+  "${CMAKE_CURRENT_LIST_DIR}/test/ut/TestRules.cpp"
+)
+set (UT_MOD_DEPS STest)
+register_fprime_ut()

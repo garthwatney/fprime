@@ -1,0 +1,58 @@
+#ifndef _RESPONSE_EXECUTION_RULES_HPP
+#define _RESPONSE_EXECUTION_RULES_HPP
+
+\#include "RulesHeaders.hpp"
+
+
+namespace Svc {
+
+#for $response in $responseList:
+
+   #set $resp = list($response.keys())[0]
+
+  struct Execute$(resp) : public STest::Rule<Svc::Tester> {
+
+             Execute$(resp)();
+
+             bool precondition(const Svc::Tester& tester);
+
+             void action(Svc::Tester& tester);
+
+  };
+  
+
+  struct Indicate$(resp)DroppedDisbled : public STest::Rule<Svc::Tester> {
+
+             Indicate$(resp)DroppedDisbled();
+
+             bool precondition(const Svc::Tester& tester);
+
+             void action(Svc::Tester& tester);
+
+  };
+
+  struct Indicate$(resp)DroppedQueued : public STest::Rule<Svc::Tester> {
+
+             Indicate$(resp)DroppedQueued();
+
+             bool precondition(const Svc::Tester& tester);
+
+             void action(Svc::Tester& tester);
+
+  };
+
+  struct Indicate$(resp)DroppedExecuting : public STest::Rule<Svc::Tester> {
+
+             Indicate$(resp)DroppedExecuting();
+
+             bool precondition(const Svc::Tester& tester);
+
+             void action(Svc::Tester& tester);
+
+  };
+  
+#end for
+  
+  
+}
+#endif

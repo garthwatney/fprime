@@ -1,0 +1,69 @@
+@startuml ClassDiagram
+'skinparam Style strictuml
+
+' Set global class color
+skinparam class {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+class FPManager <<active component>> {
+    responseTable : TableStruct[]
+
+}
+
+
+struct TableStruct {
+    responseId : U8
+    response : Response*
+    enabled : EnabledState
+    priority : ResponsePriority
+
+}
+
+
+class PriorityQueue {
+
+}
+
+class Response {
+    init()
+    alert()
+    start()
+    setEnabled()
+}
+
+class Resp1 {
+    run()
+}
+
+class Resp2 {
+    run()
+}
+
+class RespSafe {
+    run()
+}
+
+enum EnabledState {
+    ENABLED
+    DISABLED
+}
+
+enum ResponsePriority {
+    LOW
+    HIGH
+}
+
+FPManager *-- PriorityQueue
+FPManager "1" *-- "*" TableStruct
+Response <|-- Resp1
+Response <|-- Resp2
+Response <|-- RespSafe
+TableStruct "1" o-- "*" Response
+TableStruct "1" o-- "*" EnabledState
+TableStruct "1" o-- "*" ResponsePriority
+
+note "There can be multiple responses" as N1
+N1 .. RespSafe
+@enduml
