@@ -33,6 +33,14 @@ class Response {
     setEnabled()
 }
 
+class FPManagerSm <<state-machine>> {
+
+}
+
+interface FPManagerSmIf <<interface>> {
+
+}
+
 class Resp1 {
     run()
 }
@@ -55,8 +63,10 @@ enum ResponsePriority {
     HIGH
 }
 
+FPManager .right.|> FPManagerSmIf : Implements
 FPManager *-- PriorityQueue
 FPManager "1" *-- "*" TableStruct
+FPManager *-- FPManagerSm
 Response <|-- Resp1
 Response <|-- Resp2
 Response <|-- RespSafe
