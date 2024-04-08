@@ -159,6 +159,18 @@
         <channel name="typeDemo.FloatSet"/>
     </packet>
 
+    <packet name="FPDemo" id="21" level="3">
+        <channel name="fpManager.FP_RESP_1AlertCount"/>
+        <channel name="fpManager.FP_RESP_2AlertCount"/>
+        <channel name="fpManager.FP_SAFINGAlertCount"/>
+        <channel name="fpManager.FP_RESP_1CompleteCount"/>
+        <channel name="fpManager.FP_RESP_2CompleteCount"/>
+        <channel name="fpManager.FP_SAFINGCompleteCount"/>
+        <channel name="fpManager.FP_LastResponseAlert"/>
+        <channel name="fpManager.FP_LastResponseComplete"/>
+        <channel name="fpManager.FP_ResponsePackedState"/>
+    </packet>
+
     <!-- Ignored packets -->
 
     <ignore>
