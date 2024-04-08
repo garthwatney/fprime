@@ -48,6 +48,9 @@ module Svc {
 
     telemetry port Tlm
 
+    @ internal port for handling state-machine Events
+    internal port sendEvents(ev: Svc.SMEvents)
+
 
     # ----------------------------------------------------------------------
     # Commands 

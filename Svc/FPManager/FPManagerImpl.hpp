@@ -26,6 +26,8 @@
 #include <Svc/FPManager/Response.hpp>
 #include <Svc/FPManager/FPResponses.hpp>
 #include <Os/Pthreads/BufferQueue.hpp>
+#include <Svc/FPManager/FPManagerSm.h>
+
 
 
 namespace Svc {
@@ -34,8 +36,11 @@ namespace Svc {
 //!
 //!
 
-class FPManagerImpl : public FPManagerComponentBase {
+class FPManagerImpl : 
+    public FPManagerComponentBase,
+    public FPManagerSmIf {
 public:
+    FPManagerSm fpManagerSm;
 
     //!  Component constructor
     //!
@@ -50,13 +55,6 @@ public:
         HIGH_PRIORITY = 2,
         LOW_PRIORITY = 1,
     } ResponsePriority;
-
-    //! State of the FPManager component
-    //!
-    typedef enum FPState {
-        IDLE,
-        RUNNING
-    } FPState;
 
     //! Rate in which Throttled EVR's will be automatically cleared
     //!
@@ -164,9 +162,6 @@ PRIVATE:
 
      //! Private data declarations
 
-     //! Fault Protection state - running or idle
-     FPState fpState;
-
      //! Keep track of how many times a message is dropped
      //! because the component's input queue is full
      //!
@@ -197,6 +192,19 @@ PRIVATE:
      //! Table of response completion telemetry functions
      //!
      static const TlmWrite_FuncPtr1 tlmResponseComplete[FPResponses::NUMBER_RESPONSES];
+
+    // Internal Interface handler for sendEvents
+    void sendEvents_internalInterfaceHandler(const Svc::SMEvents& ev);
+
+    void sendEvent(U32 eventSignal);
+
+
+    // State machine functions
+    bool FPManagerSm_emptyQueue() override;
+    bool FPManagerSm_responseRunning() override;
+    void FPManagerSm_startNextResponse() override;
+    void FPManagerSm_reportResponseComplete() override;
+
 
 };
 

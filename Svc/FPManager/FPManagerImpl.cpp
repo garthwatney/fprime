@@ -31,7 +31,7 @@ Os::BufferQueue FPManagerImpl::respPendingQue;
 
 FPManagerImpl::FPManagerImpl(const char* compName) :
                 FPManagerComponentBase(compName),
-                fpState(IDLE),
+                fpManagerSm(this),
                 saveDroppedMessages(0),
                 responsePackedState(0),
                 autoThrottleEvrClrCtr(0),
@@ -71,6 +71,9 @@ void FPManagerImpl::init(NATIVE_INT_TYPE queueDepth, NATIVE_INT_TYPE instance) {
 
     // Send out the response enable/disable state telemetry
     packRespStateTelemetry();
+
+    // Initialize the state machine
+    fpManagerSm.init();
 
 
 }
@@ -151,66 +154,8 @@ void FPManagerImpl::Run_handler(
         log_WARNING_HI_FP_RESPONSES_DROPPED(droppedMessages);
     }
 
-    if ( this->fpState == IDLE) {
-        U8 response;
-        // Pop from the pending response queue
-        NATIVE_UINT_TYPE size = sizeof(response);
-        NATIVE_INT_TYPE priority;
+    sendEvent(FPManagerSm::RTI_SIG);
 
-
-        // If the response pending queue is not empty then pop the queue and start a response
-        if (!this->respPendingQue.isEmpty()) {
-            bool qRes = respPendingQue.pop(reinterpret_cast<U8*>(&response), size, priority);
-            FW_ASSERT(qRes);
-        } else {
-            return;
-        }
-
-        FW_ASSERT( (response <= FPResponses::NUMBER_RESPONSES) && (response > 0), response);
-
-        // Set the current response
-        this->currentResponse = this->responseTable[response-1].response;
-
-        // Start the response
-        this->currentResponse->start();
-        log_WARNING_HI_FP_RESPONSE_STARTED(response);
-
-
-        this->fpState = RUNNING;
-
-    } else {
-        // fpState is RUNNING
-        // Pull the next command from the currently executing response command list
-        // Dispatch the command to the output comCmdOut port
-        // If there are no more commands to be dispatched for this response then update the last response
-        // value, update the response counter and generate an EVR indicating this response has completed
-        // execution, then return back command response OK via the CmdStatus output port.  Set the fpState
-        // to Idle.
-
-        Fw::ComBuffer comBuffer;
-
-        FW_ASSERT(this->currentResponse != 0);
-
-        if ( this->currentResponse->run(comBuffer) ) {
-            comCmdOut_out(0, comBuffer, 0);
-        } else {
-            // Response has completed
-            U32 id = this->currentResponse->getId();
-            log_WARNING_HI_FP_RESPONSE_COMPLETED(id);
-
-            // Push out telemetry completion
-            FW_ASSERT( (id <= FPResponses::NUMBER_RESPONSES) && (id > 0), id);
-            FW_ASSERT(tlmResponseComplete[id-1] != NULL);
-            (this->*(tlmResponseComplete[id-1]))(this->currentResponse->getNumberCompletes(), Fw::Time());
-
-            tlmWrite_FP_LastResponseComplete(id);
-
-
-            this->fpState = IDLE;
-            this->currentResponse = 0;
-
-        }
-    }
 }
 
 void FPManagerImpl::cmdResponseIn_handler(
@@ -379,5 +324,72 @@ void FPManagerImpl::packRespStateTelemetry(void) {
     this->responsePackedState = tlmChanVal;
 
 }
+
+void FPManagerImpl::sendEvent(U32 eventSignal) {
+    Svc::SMEvents event;
+    event.seteventSignal(eventSignal);
+    sendEvents_internalInterfaceInvoke(event);
+}
+
+ void FPManagerImpl::sendEvents_internalInterfaceHandler(const Svc::SMEvents& ev)
+{
+      this->fpManagerSm.update(&ev);
+}
+
+
+
+// State machine functions
+//
+bool FPManagerImpl::FPManagerSm_emptyQueue() {
+    return (this->respPendingQue.isEmpty());
+}
+
+bool FPManagerImpl::FPManagerSm_responseRunning() {
+    Fw::ComBuffer comBuffer;
+    if (this->currentResponse->run(comBuffer)) 
+    {
+        comCmdOut_out(0, comBuffer, 0);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void FPManagerImpl::FPManagerSm_startNextResponse() {
+    U8 response;
+    NATIVE_UINT_TYPE size = sizeof(response);
+    NATIVE_INT_TYPE priority;
+
+    bool qRes = respPendingQue.pop(reinterpret_cast<U8*>(&response), size, priority);
+    FW_ASSERT(qRes);
+
+    FW_ASSERT( (response <= FPResponses::NUMBER_RESPONSES) && (response > 0), response);
+
+    // Set the current response
+    this->currentResponse = this->responseTable[response-1].response;
+
+    // Start the response
+    this->currentResponse->start();
+    log_WARNING_HI_FP_RESPONSE_STARTED(response);
+
+}
+
+
+void FPManagerImpl::FPManagerSm_reportResponseComplete() {
+    U32 id = this->currentResponse->getId();
+    log_WARNING_HI_FP_RESPONSE_COMPLETED(id);
+
+    // Push out telemetry completion
+    FW_ASSERT( (id <= FPResponses::NUMBER_RESPONSES) && (id > 0), id);
+    FW_ASSERT(tlmResponseComplete[id-1] != NULL);
+    (this->*(tlmResponseComplete[id-1]))(this->currentResponse->getNumberCompletes(), Fw::Time());
+
+    tlmWrite_FP_LastResponseComplete(id);
+
+    this->currentResponse = 0;
+
+
+}
+
 
 }

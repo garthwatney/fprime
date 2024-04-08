@@ -334,7 +334,7 @@ void Indicate$(resp)DroppedQueued::action(Tester& tester) {
     do {
         tester.invoke_to_Run(0, 0);
         tester.dispatchAll();
-    } while (tester.component.fpState != FPManagerImpl::IDLE);
+    } while (tester.component.fpManagerSm.state != FPManagerSm::IDLE);
 
 }
 
@@ -409,7 +409,10 @@ void Indicate$(resp)DroppedExecuting::action(Tester& tester) {
     do {
         tester.invoke_to_Run(0, 0);
         tester.dispatchAll();
-    } while (tester.component.fpState != FPManagerImpl::IDLE);
+    } while (tester.component.fpManagerSm.state != FPManagerSm::IDLE);
+
+
+
 
 }
 

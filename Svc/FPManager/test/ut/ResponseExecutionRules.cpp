@@ -352,7 +352,7 @@ void IndicateRESP_1DroppedQueued::action(Tester& tester) {
     do {
         tester.invoke_to_Run(0, 0);
         tester.dispatchAll();
-    } while (tester.component.fpState != FPManagerImpl::IDLE);
+    } while (tester.component.fpManagerSm.state != FPManagerSm::IDLE);
 
 }
 
@@ -427,7 +427,10 @@ void IndicateRESP_1DroppedExecuting::action(Tester& tester) {
     do {
         tester.invoke_to_Run(0, 0);
         tester.dispatchAll();
-    } while (tester.component.fpState != FPManagerImpl::IDLE);
+    } while (tester.component.fpManagerSm.state != FPManagerSm::IDLE);
+
+
+
 
 }
 
@@ -672,7 +675,7 @@ void IndicateRESP_2DroppedQueued::action(Tester& tester) {
     do {
         tester.invoke_to_Run(0, 0);
         tester.dispatchAll();
-    } while (tester.component.fpState != FPManagerImpl::IDLE);
+    } while (tester.component.fpManagerSm.state != FPManagerSm::IDLE);
 
 }
 
@@ -747,7 +750,10 @@ void IndicateRESP_2DroppedExecuting::action(Tester& tester) {
     do {
         tester.invoke_to_Run(0, 0);
         tester.dispatchAll();
-    } while (tester.component.fpState != FPManagerImpl::IDLE);
+    } while (tester.component.fpManagerSm.state != FPManagerSm::IDLE);
+
+
+
 
 }
 
@@ -992,7 +998,7 @@ void IndicateSAFINGDroppedQueued::action(Tester& tester) {
     do {
         tester.invoke_to_Run(0, 0);
         tester.dispatchAll();
-    } while (tester.component.fpState != FPManagerImpl::IDLE);
+    } while (tester.component.fpManagerSm.state != FPManagerSm::IDLE);
 
 }
 
@@ -1067,7 +1073,10 @@ void IndicateSAFINGDroppedExecuting::action(Tester& tester) {
     do {
         tester.invoke_to_Run(0, 0);
         tester.dispatchAll();
-    } while (tester.component.fpState != FPManagerImpl::IDLE);
+    } while (tester.component.fpManagerSm.state != FPManagerSm::IDLE);
+
+
+
 
 }
 

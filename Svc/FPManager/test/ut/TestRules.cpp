@@ -72,7 +72,7 @@ void CheckPriorityQ::action(Tester& tester) {
      do {
          tester.invoke_to_Run(0, 0);
          tester.dispatchAll();
-     } while ( (!tester.component.respPendingQue.isEmpty()) || (tester.component.fpState != FPManagerImpl::IDLE) );
+     } while ( (!tester.component.respPendingQue.isEmpty()) || (tester.component.fpManagerSm.state != FPManagerSm::IDLE) );
 
      tester.assertEvents_FP_RESPONSE_STARTED_size(__FILE__, __LINE__, FPResponses::NUMBER_RESPONSES-1);
      tester.assertEvents_FP_RESPONSE_COMPLETED_size(__FILE__, __LINE__, FPResponses::NUMBER_RESPONSES-1);

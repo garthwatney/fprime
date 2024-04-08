@@ -4,11 +4,11 @@
 
 #include "Tester.hpp"
 
-
 TEST(Test, indicateResponsesDisabled) {
   Svc::Tester tester;
   tester.indicateResponsesDisabled();
 }
+
 
 TEST(Test, indicateResponsesQueued) {
   Svc::Tester tester;

@@ -33,6 +33,16 @@ namespace Svc {
   namespace CommandSerializer {
   
 
+    //! Serialize a CMD_TEST_CMD_1 command
+    //! return The serialization status
+    Fw::SerializeStatus CMD_TEST_CMD_1 (   
+        I32 arg1,
+        F32 arg2,
+        U8 arg3,
+        Fw::ComBuffer& comBuffer //!< The result
+    );
+    
+
     //! Serialize a CMD_CLEAR_TRACKING command
     //! return The serialization status
     Fw::SerializeStatus CMD_CLEAR_TRACKING (   
@@ -43,16 +53,6 @@ namespace Svc {
     //! Serialize a CMD_NO_OP command
     //! return The serialization status
     Fw::SerializeStatus CMD_NO_OP (   
-        Fw::ComBuffer& comBuffer //!< The result
-    );
-    
-
-    //! Serialize a CMD_TEST_CMD_1 command
-    //! return The serialization status
-    Fw::SerializeStatus CMD_TEST_CMD_1 (   
-        I32 arg1,
-        F32 arg2,
-        U8 arg3,
         Fw::ComBuffer& comBuffer //!< The result
     );
     
