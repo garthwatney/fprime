@@ -418,7 +418,7 @@ void IndicateRESP_1DroppedExecuting::action(Tester& tester) {
 
 
     // Check telemetry response indication counter
-    tester.assertTlm_size(__FILE__, __LINE__, 3);
+    tester.assertTlm_size(__FILE__, __LINE__, 4);
     // Count should now be 2.
     tester.assertTlm_FP_RESP_1AlertCount(__FILE__, __LINE__, 0, 2);
     tester.assertTlm_FP_LastResponseAlert(__FILE__, __LINE__, 0, FPResponses::RESP_1);
@@ -741,7 +741,7 @@ void IndicateRESP_2DroppedExecuting::action(Tester& tester) {
 
 
     // Check telemetry response indication counter
-    tester.assertTlm_size(__FILE__, __LINE__, 3);
+    tester.assertTlm_size(__FILE__, __LINE__, 4);
     // Count should now be 2.
     tester.assertTlm_FP_RESP_2AlertCount(__FILE__, __LINE__, 0, 2);
     tester.assertTlm_FP_LastResponseAlert(__FILE__, __LINE__, 0, FPResponses::RESP_2);
@@ -1064,7 +1064,7 @@ void IndicateSAFINGDroppedExecuting::action(Tester& tester) {
 
 
     // Check telemetry response indication counter
-    tester.assertTlm_size(__FILE__, __LINE__, 3);
+    tester.assertTlm_size(__FILE__, __LINE__, 4);
     // Count should now be 2.
     tester.assertTlm_FP_SAFINGAlertCount(__FILE__, __LINE__, 0, 2);
     tester.assertTlm_FP_LastResponseAlert(__FILE__, __LINE__, 0, FPResponses::SAFING);

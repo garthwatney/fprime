@@ -400,7 +400,7 @@ void Indicate$(resp)DroppedExecuting::action(Tester& tester) {
 
 
     // Check telemetry response indication counter
-    tester.assertTlm_size(__FILE__, __LINE__, 3);
+    tester.assertTlm_size(__FILE__, __LINE__, 4);
     // Count should now be 2.
     tester.assertTlm_FP_$(resp)AlertCount(__FILE__, __LINE__, 0, 2);
     tester.assertTlm_FP_LastResponseAlert(__FILE__, __LINE__, 0, FPResponses::$resp.upper());

@@ -115,7 +115,7 @@ void PackedTlm::action(Tester& tester) {
     U32 expectedTlmVal = pow(2, static_cast<int>(FPResponses::NUMBER_RESPONSES)) - 1;
 
     // Check packed telemetry
-    tester.assertTlm_size(__FILE__, __LINE__, 2);
+    tester.assertTlm_size(__FILE__, __LINE__, 3);
     tester.assertTlm_FP_ResponsePackedState(__FILE__, __LINE__, 0, expectedTlmVal);
 
 
