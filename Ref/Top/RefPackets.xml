@@ -169,6 +169,7 @@
         <channel name="fpManager.FP_LastResponseAlert"/>
         <channel name="fpManager.FP_LastResponseComplete"/>
         <channel name="fpManager.FP_ResponsePackedState"/>
+        <channel name="fpManager.fpState"/>
     </packet>
 
     <!-- Ignored packets -->

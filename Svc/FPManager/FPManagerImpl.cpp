@@ -131,11 +131,11 @@ void FPManagerImpl::Run_handler(
     NATIVE_UINT_TYPE context /*!< optional argument */
 ) {
     // This Run handler is invoked at 10 Hz.
-    // Check the state of the component and either do nothing or
-    // pull a response off the queue or keep pushing out commands
-    // from a currently executing response.
 
     // Push out periodic telemetry
+    Svc::FPState state(static_cast<Svc::FPState::T>(this->fpManagerSm.state));
+    tlmWrite_fpState(state);
+
     tlmWrite_FP_ResponsePackedState(this->responsePackedState);
 
     this->autoThrottleEvrClrCtr++;

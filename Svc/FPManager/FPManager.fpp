@@ -5,9 +5,15 @@ module Svc {
     RID_ENABLE
   }
 
+
   enum RespAllEnableState { 
         RID_DISABLE_ALL
         RID_ENABLE_ALL
+  }
+
+  enum FPState {
+      IDLE
+      RUNNING
   }
 
   active component FPManager {
@@ -152,6 +158,7 @@ module Svc {
     # Telemetry 
     # ----------------------------------------------------------------------
     include "TlmDict.fppi"
+    telemetry fpState: FPState
 
   }
 }
