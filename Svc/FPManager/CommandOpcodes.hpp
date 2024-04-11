@@ -27,9 +27,9 @@ namespace Svc {
   namespace OPCODES {
   
   enum Opcodes {
-    CMD_NO_OP = 0x500,
-    CMD_CLEAR_TRACKING = 0x503,
     CMD_TEST_CMD_1 = 0x502,
+    CMD_CLEAR_TRACKING = 0x503,
+    CMD_NO_OP = 0x500,
   };
   
   }
