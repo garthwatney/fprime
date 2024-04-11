@@ -43,9 +43,11 @@ namespace Svc {
 
       void START_FAULT_cmdHandler(
           FwOpcodeType opCode, //!< The opcode
-          U32 cmdSeq) override;
+          U32 cmdSeq,
+          U32 numFaults) override;
 
       U32 faultCtr;
+      U32 numFaults;
 
   };
 

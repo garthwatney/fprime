@@ -7,7 +7,7 @@ module Svc {
         ##############################################################################
 
         # @ Example async command
-        async command START_FAULT()
+        async command START_FAULT(numFaults: U32)
 
         # @ Example telemetry counter
         # telemetry ExampleCounter: U64

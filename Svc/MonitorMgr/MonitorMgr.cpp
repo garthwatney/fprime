@@ -17,7 +17,8 @@ namespace Svc {
   MonitorMgr ::
     MonitorMgr(const char* const compName) :
       MonitorMgrComponentBase(compName),
-      faultCtr(10)
+      faultCtr(10),
+      numFaults(3)
   {
 
   }
@@ -33,7 +34,7 @@ namespace Svc {
     NATIVE_UINT_TYPE context) 
   {
     if (this->faultCtr < 10) {
-      U32 fault = rand() % 3 + 1;
+      U32 fault = rand() % this->numFaults + 1;
       ResponseOut_out(0, fault);
       this->faultCtr ++;
     }
@@ -45,8 +46,10 @@ namespace Svc {
 
   void MonitorMgr::START_FAULT_cmdHandler(
     FwOpcodeType opCode, //!< The opcode
-    U32 cmdSeq)
+    U32 cmdSeq,
+    U32 numFaults)
   {
+    this->numFaults = numFaults;
     this->faultCtr = 0;
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
   }
