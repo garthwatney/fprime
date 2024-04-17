@@ -1,22 +1,15 @@
-/**
- * \file FPManagerImpl.hpp
- * \author Garth Watney
- * \brief FPManagerImpl component header
- *
- *
- * \copyright
- * Copyright 2009-2015, by the California Institute of Technology.
- * ALL RIGHTS RESERVED.  United States Government Sponsorship
- * acknowledged. Any commercial use must be negotiated with the Office
- * of Technology Transfer at the California Institute of Technology.
- * <br /><br />
- * This software may be subject to U.S. export control laws and
- * regulations.  By accepting this document, the user agrees to comply
- * with all U.S. export laws and regulations.  User has the
- * responsibility to obtain export licenses, or other export authority
- * as may be required before exporting such information to foreign
- * countries or providing access to foreign persons.
- */
+// ======================================================================
+// \title  FPManagerImpl.hpp
+// \author Garth Watney
+// \brief  hpp file for FPManagerImpl component implementation class
+//
+// \copyright
+// Copyright 2009-2015, by the California Institute of Technology.
+// ALL RIGHTS RESERVED.  United States Government Sponsorship
+// acknowledged.
+//
+// ======================================================================
+
 #ifndef FPMANAGER_IMPL_HPP
 #define FPMANAGER_IMPL_HPP
 
@@ -26,8 +19,7 @@
 #include <Svc/FPManager/Response.hpp>
 #include <Svc/FPManager/FPResponses.hpp>
 #include <Os/Pthreads/BufferQueue.hpp>
-#include <Svc/FPManager/FPManagerSm.h>
-
+#include <Svc/FPManager/FPManagerSmBase.hpp>
 
 
 namespace Svc {
@@ -37,10 +29,9 @@ namespace Svc {
 //!
 
 class FPManagerImpl : 
-    public FPManagerComponentBase,
-    public FPManagerSmIf {
+    public FPManagerSmBase
+{
 public:
-    FPManagerSm fpManagerSm;
 
     //!  Component constructor
     //!
@@ -192,12 +183,6 @@ PRIVATE:
      //! Table of response completion telemetry functions
      //!
      static const TlmWrite_FuncPtr1 tlmResponseComplete[FPResponses::NUMBER_RESPONSES];
-
-    // Internal Interface handler for sendEvents
-    void sendEvents_internalInterfaceHandler(const Svc::SMEvents& ev);
-
-    void sendEvent(U32 eventSignal);
-
 
     // State machine functions
     bool FPManagerSm_emptyQueue() override;

@@ -11,11 +11,6 @@ module Svc {
         RID_ENABLE_ALL
   }
 
-  enum FPState {
-      IDLE
-      RUNNING
-  }
-
   active component FPManager {
 
     # ----------------------------------------------------------------------
@@ -54,9 +49,7 @@ module Svc {
 
     telemetry port Tlm
 
-    @ internal port for handling state-machine Events
-    internal port sendEvents(ev: Svc.SMEvents)
-
+    include "state-machine.fppi"
 
     # ----------------------------------------------------------------------
     # Commands 
@@ -158,7 +151,7 @@ module Svc {
     # Telemetry 
     # ----------------------------------------------------------------------
     include "TlmDict.fppi"
-    telemetry fpState: FPState
+    telemetry fpState: FPManagerSmStates
 
   }
 }

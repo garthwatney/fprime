@@ -1,3 +1,6 @@
+
+# This is an Auto generate file from the STARS Autocoder
+
 module Svc {
 
     struct SMEvents {
@@ -6,4 +9,6 @@ module Svc {
         payload: [128] U8
     }
 
-}
+}       
+                                
+            

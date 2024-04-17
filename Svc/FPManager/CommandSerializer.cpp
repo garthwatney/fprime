@@ -50,27 +50,6 @@ namespace Svc {
     
   
     Fw::SerializeStatus
-    CMD_NO_OP(
-          Fw::ComBuffer& comBuffer
-      )
-    {
-      Fw::SerializeStatus status;
-      // Reset the buffer
-      comBuffer.resetSer();
-      // Serialize the command packet type
-      FwPacketDescriptorType descriptor = Fw::ComPacket::FW_PACKET_COMMAND;
-      status = comBuffer.serialize(descriptor);
-      // Serialize the opcode
-      if (status == Fw::FW_SERIALIZE_OK) {
-        FwOpcodeType opcode = OPCODES::CMD_NO_OP;
-        status = comBuffer.serialize(opcode);
-      }
-      // Serialize arguments
-      return status;
-    }
-    
-  
-    Fw::SerializeStatus
     CMD_TEST_CMD_1(
               I32 arg1,
               F32 arg2,
@@ -99,6 +78,27 @@ namespace Svc {
       if (status == Fw::FW_SERIALIZE_OK) {
         status = comBuffer.serialize(arg3);
       }
+      return status;
+    }
+    
+  
+    Fw::SerializeStatus
+    CMD_NO_OP(
+          Fw::ComBuffer& comBuffer
+      )
+    {
+      Fw::SerializeStatus status;
+      // Reset the buffer
+      comBuffer.resetSer();
+      // Serialize the command packet type
+      FwPacketDescriptorType descriptor = Fw::ComPacket::FW_PACKET_COMMAND;
+      status = comBuffer.serialize(descriptor);
+      // Serialize the opcode
+      if (status == Fw::FW_SERIALIZE_OK) {
+        FwOpcodeType opcode = OPCODES::CMD_NO_OP;
+        status = comBuffer.serialize(opcode);
+      }
+      // Serialize arguments
       return status;
     }
     

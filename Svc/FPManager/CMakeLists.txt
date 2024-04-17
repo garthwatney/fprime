@@ -12,6 +12,7 @@ set(SOURCE_FILES
   "${CMAKE_CURRENT_LIST_DIR}/Response.cpp"
   "${CMAKE_CURRENT_LIST_DIR}/CommandSerializer.cpp"
   "${CMAKE_CURRENT_LIST_DIR}/FPResponseTable.cpp"
+  "${CMAKE_CURRENT_LIST_DIR}/FPManagerSmBase.cpp"
 
      "${CMAKE_CURRENT_LIST_DIR}/RESP_1.cpp"
      "${CMAKE_CURRENT_LIST_DIR}/RESP_2.cpp"

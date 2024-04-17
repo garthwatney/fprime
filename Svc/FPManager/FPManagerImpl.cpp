@@ -1,22 +1,15 @@
-/**
- * \file FPManagerImpl.cpp
- * \author Garth Watney
- * \brief FPManagerImpl component implementation
- *
- *
- * \copyright
- * Copyright 2009-2015, by the California Institute of Technology.
- * ALL RIGHTS RESERVED.  United States Government Sponsorship
- * acknowledged. Any commercial use must be negotiated with the Office
- * of Technology Transfer at the California Institute of Technology.
- * <br /><br />
- * This software may be subject to U.S. export control laws and
- * regulations.  By accepting this document, the user agrees to comply
- * with all U.S. export laws and regulations.  User has the
- * responsibility to obtain export licenses, or other export authority
- * as may be required before exporting such information to foreign
- * countries or providing access to foreign persons.
- */
+
+// ======================================================================
+// \title  FPManagerImpl.cpp
+// \author Garth Watney
+// \brief  cpp file for FPManagerImpl component implementation class
+//
+// \copyright
+// Copyright 2009-2015, by the California Institute of Technology.
+// ALL RIGHTS RESERVED.  United States Government Sponsorship
+// acknowledged.
+//
+// ======================================================================
 
 #include <Svc/FPManager/FPManagerImpl.hpp>
 #include <Fw/Types/BasicTypes.hpp>
@@ -30,8 +23,7 @@ Os::BufferQueue FPManagerImpl::respPendingQue;
 
 
 FPManagerImpl::FPManagerImpl(const char* compName) :
-                FPManagerComponentBase(compName),
-                fpManagerSm(this),
+                FPManagerSmBase(compName),
                 saveDroppedMessages(0),
                 responsePackedState(0),
                 autoThrottleEvrClrCtr(0),
@@ -43,7 +35,7 @@ FPManagerImpl::FPManagerImpl(const char* compName) :
 
 
 void FPManagerImpl::init(NATIVE_INT_TYPE queueDepth, NATIVE_INT_TYPE instance) {
-    FPManagerComponentBase::init(queueDepth);
+    FPManagerSmBase::init(queueDepth, instance);
 
     U8 responseId;
     bool enabled;
@@ -133,7 +125,7 @@ void FPManagerImpl::Run_handler(
     // This Run handler is invoked at 10 Hz.
 
     // Push out periodic telemetry
-    Svc::FPState state(static_cast<Svc::FPState::T>(this->fpManagerSm.state));
+    Svc::FPManager_FPManagerSmStates state(static_cast<Svc::FPManager_FPManagerSmStates::T>(this->fpManagerSm.state));
     tlmWrite_fpState(state);
 
     tlmWrite_FP_ResponsePackedState(this->responsePackedState);
@@ -154,7 +146,7 @@ void FPManagerImpl::Run_handler(
         log_WARNING_HI_FP_RESPONSES_DROPPED(droppedMessages);
     }
 
-    sendEvent(FPManagerSm::RTI_SIG);
+    sendEvent(FPManagerSm::RTI_SIG, StateMachine::FPMANAGERSM);
 
 }
 
@@ -324,19 +316,6 @@ void FPManagerImpl::packRespStateTelemetry(void) {
     this->responsePackedState = tlmChanVal;
 
 }
-
-void FPManagerImpl::sendEvent(U32 eventSignal) {
-    Svc::SMEvents event;
-    event.seteventSignal(eventSignal);
-    sendEvents_internalInterfaceInvoke(event);
-}
-
- void FPManagerImpl::sendEvents_internalInterfaceHandler(const Svc::SMEvents& ev)
-{
-      this->fpManagerSm.update(&ev);
-}
-
-
 
 // State machine functions
 //
