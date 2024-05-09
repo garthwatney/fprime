@@ -92,10 +92,7 @@ enum { WARN = 3, FATAL = 5 };
 namespace rateGroup3Comp {
 enum { WARN = 3, FATAL = 5 };
 }
-namespace fpManager {
-enum { WARN = 3, FATAL = 5 };
-}
-namespace monitorMgr {
+namespace dpCat {
 enum { WARN = 3, FATAL = 5 };
 }
 }  // namespace PingEntries
