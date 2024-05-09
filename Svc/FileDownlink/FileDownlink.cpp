@@ -67,7 +67,7 @@ namespace Svc {
 
     Os::Queue::QueueStatus stat = m_fileQueue.create(
       Os::QueueString("fileDownlinkQueue"),
-      fileQueueDepth,
+      static_cast<NATIVE_INT_TYPE>(fileQueueDepth),
       sizeof(struct FileEntry)
     );
     FW_ASSERT(stat == Os::Queue::QUEUE_OK, stat);
@@ -92,7 +92,7 @@ namespace Svc {
   void FileDownlink ::
     Run_handler(
         const NATIVE_INT_TYPE portNum,
-        NATIVE_UINT_TYPE context
+        U32 context
     )
   {
     switch(this->m_mode.get())
@@ -167,8 +167,8 @@ namespace Svc {
 
     FW_ASSERT(sourceFilename.length() < sizeof(entry.srcFilename));
     FW_ASSERT(destFilename.length() < sizeof(entry.destFilename));
-    Fw::StringUtils::string_copy(entry.srcFilename, sourceFilename.toChar(), sizeof(entry.srcFilename));
-    Fw::StringUtils::string_copy(entry.destFilename, destFilename.toChar(), sizeof(entry.destFilename));
+    (void) Fw::StringUtils::string_copy(entry.srcFilename, sourceFilename.toChar(), sizeof(entry.srcFilename));
+    (void) Fw::StringUtils::string_copy(entry.destFilename, destFilename.toChar(), sizeof(entry.destFilename));
 
     Os::Queue::QueueStatus status = m_fileQueue.send(reinterpret_cast<U8*>(&entry), sizeof(entry), 0, Os::Queue::QUEUE_NONBLOCKING);
 
@@ -240,8 +240,8 @@ namespace Svc {
 
     FW_ASSERT(sourceFilename.length() < sizeof(entry.srcFilename));
     FW_ASSERT(destFilename.length() < sizeof(entry.destFilename));
-    Fw::StringUtils::string_copy(entry.srcFilename, sourceFilename.toChar(), sizeof(entry.srcFilename));
-    Fw::StringUtils::string_copy(entry.destFilename, destFilename.toChar(), sizeof(entry.destFilename));
+    (void) Fw::StringUtils::string_copy(entry.srcFilename, sourceFilename.toChar(), sizeof(entry.srcFilename));
+    (void) Fw::StringUtils::string_copy(entry.destFilename, destFilename.toChar(), sizeof(entry.destFilename));
 
     Os::Queue::QueueStatus status = m_fileQueue.send(reinterpret_cast<U8*>(&entry), sizeof(entry), 0, Os::Queue::QUEUE_NONBLOCKING);
 
@@ -273,8 +273,8 @@ namespace Svc {
 
     FW_ASSERT(sourceFilename.length() < sizeof(entry.srcFilename));
     FW_ASSERT(destFilename.length() < sizeof(entry.destFilename));
-    Fw::StringUtils::string_copy(entry.srcFilename, sourceFilename.toChar(), sizeof(entry.srcFilename));
-    Fw::StringUtils::string_copy(entry.destFilename, destFilename.toChar(), sizeof(entry.destFilename));
+    (void) Fw::StringUtils::string_copy(entry.srcFilename, sourceFilename.toChar(), sizeof(entry.srcFilename));
+    (void) Fw::StringUtils::string_copy(entry.destFilename, destFilename.toChar(), sizeof(entry.destFilename));
 
     Os::Queue::QueueStatus status = m_fileQueue.send(reinterpret_cast<U8*>(&entry), sizeof(entry), 0, Os::Queue::QUEUE_NONBLOCKING);
 
@@ -477,7 +477,10 @@ namespace Svc {
   {
     const U32 bufferSize = filePacket.bufferSize();
     FW_ASSERT(this->m_buffer.getData() != nullptr);
-    FW_ASSERT(this->m_buffer.getSize() >= bufferSize, bufferSize, this->m_buffer.getSize());
+    FW_ASSERT(
+      this->m_buffer.getSize() >= bufferSize,
+      static_cast<FwAssertArgType>(bufferSize),
+      static_cast<FwAssertArgType>(this->m_buffer.getSize()));
     const Fw::SerializeStatus status = filePacket.toBuffer(this->m_buffer);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK);
     // set the buffer size to the packet size

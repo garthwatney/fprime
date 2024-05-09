@@ -3,7 +3,7 @@
 #
 # Build core F prime.
 ####
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.16)
 project(FPrime C CXX)
 set(FPRIME_FRAMEWORK_PATH "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "Location of F prime framework" FORCE)
 set(FPRIME_PROJECT_ROOT "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "Root path of F prime project" FORCE)
@@ -20,18 +20,18 @@ add_compile_options(
     -Wall
     -Wextra
     -Werror
-#    -pedantic
     $<$<COMPILE_LANGUAGE:CXX>:-Wold-style-cast>
     -Wno-unused-parameter
 )
 
-# Add -Wshadow only for framework code, not the unit tests
-# TODO: Next lines to be uncommented once FPP is not generating files with shadow variables
-# if (NOT BUILD_TESTING)
-#     add_compile_options(
-#         -Wshadow
-#     )
-# endif()
+# Add -Wshadow and -pedantic only for framework code, not the unit tests
+if (NOT BUILD_TESTING)
+    add_compile_options(
+        -Wshadow
+        -pedantic
+        -Wconversion
+    )
+endif()
 
 # Turn on pedantic checks for clang, but disable specific checks that F' doesn't comply with.
 # GCC doesn't support disabling specific pedantic checks, so skip pedantic on GCC for now.

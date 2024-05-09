@@ -1,0 +1,40 @@
+Run a plantuml server to render the state machine diagrams:
+-----------------------------------------------------------
+
+Install docker if not already installed:
+---------------------------------------- 
+docker --version
+sudo apt update
+sudo apt install docker.io
+
+Pull the plantuml docker image:
+-------------------------------
+docker pull plantuml/plantuml-server
+
+Run the docker image using port 8080:
+----------------------------------------
+docker run --detach --publish 8080:8080 plantuml/plantuml-server:jetty
+
+To check docker processes:
+--------------------------
+docker ps
+
+To stop and remove a docker process:
+------------------------------------
+ docker stop 007a1c2ef9c4
+ docker rm 007a1c2ef9c4
+
+Check that its working:
+-----------------------
+On a browser go to:  http://localhost:8080
+
+Animate a state machine:
+------------------------
+Pipe command line telemetry to a Python Flask on 8081
+./tlm.py | ./graph.py
+
+In a browser drag and drop graph.html
+(This continually makes requests to the Python Flask running on 8081)
+
+
+

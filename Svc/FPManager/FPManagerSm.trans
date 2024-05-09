@@ -1,0 +1,4 @@
+InitialState = IDLE, Event = RTI, guard = emptyQueue(), action = None, TargetState = IDLE
+InitialState = IDLE, Event = RTI, guard = None, action = startNextResponse(), TargetState = RUNNING
+InitialState = RUNNING, Event = RTI, guard = responseRunning(), action = None, TargetState = RUNNING
+InitialState = RUNNING, Event = RTI, guard = None, action = reportResponseComplete(), TargetState = IDLE

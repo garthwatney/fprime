@@ -1,0 +1,22 @@
+@startuml ContextDiagram
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+skinparam component {
+    BackgroundColor LightGrey
+    BorderColor Black
+}
+
+
+component [rg10Hz]
+component [FPManager] #Gold
+component [CmdDispatcher]
+component [MonitorMgr]
+
+rg10Hz --> FPManager : sched
+FPManager --> CmdDispatcher : Cmds
+CmdDispatcher --> FPManager : Status
+MonitorMgr --> FPManager : Faults
+
+@enduml

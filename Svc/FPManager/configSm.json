@@ -1,0 +1,16 @@
+{
+    "nameSpace": "Svc",
+    "component": "FPManager",
+    "componentPath": "Svc/FPManager",
+    "autoHeaderFile": "FPManagerComponentAc.hpp",
+    "componentBase": "FPManagerComponentBase",
+    "state_machines": [
+        {
+            "stateName": "FPManagerSm",
+            "stateMachineInstance": ["fpManagerSm"]
+        }
+    ]
+}
+
+
+

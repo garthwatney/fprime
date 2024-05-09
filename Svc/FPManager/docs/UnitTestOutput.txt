@@ -1,0 +1,371 @@
+Running unit test for SvcFPManager
+Running test/ut/runtest_DARWIN with output dir darwin-darwin-x86-ut-nocov-llvm-bin
+test/ut/runtest_DARWIN darwin-darwin-x86-ut-nocov-llvm-bin
+Running /Users/watney/Development/Dieb/Rel1.20/Svc/FPManager/test/ut/darwin-darwin-x86-ut-nocov-llvm-bin/test_ut
+[==========] Running 6 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 6 tests from Test
+[ RUN      ] Test.executeResponses
+
+***************************************
+TESTCASE 6400.1.1: Execute Responses
+***************************************
+[Scenario testScenario] Applying rule executeD_HTR_OFF
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 1 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 1 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 1 completed execution
+[Scenario testScenario] Applying rule executeG1_HTR_OFF
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 2 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 2 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 2 completed execution
+[Scenario testScenario] Applying rule executeG2_HTR_OFF
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 3 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 3 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 3 completed execution
+[Scenario testScenario] Applying rule executeG3_HTR_OFF
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 4 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 4 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 4 completed execution
+[Scenario testScenario] Applying rule executeIDLE_ALL_HTRS_OFF
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 5 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 5 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 5 completed execution
+[Scenario testScenario] Applying rule executeIDLE
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 6 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 6 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 6 completed execution
+[Scenario testScenario] Applying rule executeIDLE_FW
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 7 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 7 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 7 completed execution
+[Scenario testScenario] Applying rule executeSOFT_SAFE
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 8 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 8 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 8 completed execution
+[Scenario testScenario] Applying rule executeOFF
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 9 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 9 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 9 completed execution
+[       OK ] Test.executeResponses (3 ms)
+[ RUN      ] Test.indicateResponsesDisabled
+
+***************************************
+TESTCASE 6400.1.2: Indicate Responses when Disabled
+***************************************
+[Scenario testScenario] Applying rule indicateD_HTR_OFFDroppedDisabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+[Scenario testScenario] Applying rule indicateG1_HTR_OFFDroppedDisabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 2 dropped because it's disabled
+[Scenario testScenario] Applying rule indicateG2_HTR_OFFDroppedDisabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 3 dropped because it's disabled
+[Scenario testScenario] Applying rule indicateG3_HTR_OFFDroppedDisabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 4 dropped because it's disabled
+[Scenario testScenario] Applying rule indicateIDLE_ALL_HTRS_OFFDroppedDisabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 5 dropped because it's disabled
+[Scenario testScenario] Applying rule indicateIDLEDroppedDisabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 6 dropped because it's disabled
+[Scenario testScenario] Applying rule indicateIDLE_FWDroppedDisabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 7 dropped because it's disabled
+[Scenario testScenario] Applying rule indicateSOFT_SAFEDroppedDisabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 8 dropped because it's disabled
+[Scenario testScenario] Applying rule indicateOFFDroppedDisabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 9 dropped because it's disabled
+[       OK ] Test.indicateResponsesDisabled (3 ms)
+[ RUN      ] Test.indicateResponsesQueued
+
+***************************************
+TESTCASE 6400.1.3: Indicate Responses when Queued
+***************************************
+[Scenario testScenario] Applying rule indicateD_HTR_OFFDroppedQueued
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 1 placed in execution queue
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 1 dropped because it's already queued
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 1 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 1 completed execution
+[Scenario testScenario] Applying rule indicateG1_HTR_OFFDroppedQueued
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 2 placed in execution queue
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 2 dropped because it's already queued
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 2 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 2 completed execution
+[Scenario testScenario] Applying rule indicateG2_HTR_OFFDroppedQueued
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 3 placed in execution queue
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 3 dropped because it's already queued
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 3 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 3 completed execution
+[Scenario testScenario] Applying rule indicateG3_HTR_OFFDroppedQueued
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 4 placed in execution queue
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 4 dropped because it's already queued
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 4 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 4 completed execution
+[Scenario testScenario] Applying rule indicateIDLE_ALL_HTRS_OFFDroppedQueued
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 5 placed in execution queue
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 5 dropped because it's already queued
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 5 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 5 completed execution
+[Scenario testScenario] Applying rule indicateIDLEDroppedQueued
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 6 placed in execution queue
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 6 dropped because it's already queued
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 6 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 6 completed execution
+[Scenario testScenario] Applying rule indicateIDLE_FWDroppedQueued
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 7 placed in execution queue
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 7 dropped because it's already queued
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 7 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 7 completed execution
+[Scenario testScenario] Applying rule indicateSOFT_SAFEDroppedQueued
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 8 placed in execution queue
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 8 dropped because it's already queued
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 8 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 8 completed execution
+[Scenario testScenario] Applying rule indicateOFFDroppedQueued
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 9 placed in execution queue
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 9 dropped because it's already queued
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 9 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 9 completed execution
+[       OK ] Test.indicateResponsesQueued (2 ms)
+[ RUN      ] Test.indicateResponsesExecuting
+
+***************************************
+TESTCASE 6400.1.: Indicate Responses when already executing
+***************************************
+[Scenario testScenario] Applying rule indicateD_HTR_OFFDroppedExecuting
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 1 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 1 started execution
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 1 dropped because it's already queued
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 1 completed execution
+[Scenario testScenario] Applying rule indicateG1_HTR_OFFDroppedExecuting
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 2 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 2 started execution
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 2 dropped because it's already queued
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 2 completed execution
+[Scenario testScenario] Applying rule indicateG2_HTR_OFFDroppedExecuting
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 3 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 3 started execution
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 3 dropped because it's already queued
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 3 completed execution
+[Scenario testScenario] Applying rule indicateG3_HTR_OFFDroppedExecuting
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 4 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 4 started execution
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 4 dropped because it's already queued
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 4 completed execution
+[Scenario testScenario] Applying rule indicateIDLE_ALL_HTRS_OFFDroppedExecuting
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 5 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 5 started execution
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 5 dropped because it's already queued
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 5 completed execution
+[Scenario testScenario] Applying rule indicateIDLEDroppedExecuting
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 6 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 6 started execution
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 6 dropped because it's already queued
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 6 completed execution
+[Scenario testScenario] Applying rule indicateIDLE_FWDroppedExecuting
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 7 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 7 started execution
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 7 dropped because it's already queued
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 7 completed execution
+[Scenario testScenario] Applying rule indicateSOFT_SAFEDroppedExecuting
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 8 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 8 started execution
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 8 dropped because it's already queued
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 8 completed execution
+[Scenario testScenario] Applying rule indicateOFFDroppedExecuting
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 9 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 9 started execution
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 9 dropped because it's already queued
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 9 completed execution
+[       OK ] Test.indicateResponsesExecuting (3 ms)
+[ RUN      ] Test.exercisePriorityQ
+
+***************************************
+TESTCASE 6400.1.4: Exercise the resonse pending priority queue
+***************************************
+[Scenario testScenario] Applying rule checkPriorityQ
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 1 placed in execution queue
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 2 placed in execution queue
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 3 placed in execution queue
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 4 placed in execution queue
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 5 placed in execution queue
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 6 placed in execution queue
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 7 placed in execution queue
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 8 placed in execution queue
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 9 placed in execution queue
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 9 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 9 completed execution
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 1 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 1 completed execution
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 2 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 2 completed execution
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 3 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 3 completed execution
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 4 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 4 completed execution
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 5 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 5 completed execution
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 6 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 6 completed execution
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 7 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 7 completed execution
+EVENT: (3) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_STARTED : Response 8 started execution
+EVENT: (4) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_COMPLETED : Response 8 completed execution
+[       OK ] Test.exercisePriorityQ (3 ms)
+[ RUN      ] Test.checkMisc
+
+***************************************
+TESTCASE 6400.1.5: Check Misc
+***************************************
+[Scenario testScenario] Applying rule packedTlm
+expectedTlm = 1ff
+expectedTlm = ff
+expectedTlm = 7f
+expectedTlm = 3f
+expectedTlm = 1f
+expectedTlm = f
+expectedTlm = 7
+expectedTlm = 3
+expectedTlm = 1
+[Scenario testScenario] Applying rule queOverflow
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (5) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSES_DROPPED : Response indication dropped due to component queue full: 1
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (5) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSES_DROPPED : Response indication dropped due to component queue full: 2
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (5) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSES_DROPPED : Response indication dropped due to component queue full: 3
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (5) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSES_DROPPED : Response indication dropped due to component queue full: 4
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (5) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSES_DROPPED : Response indication dropped due to component queue full: 5
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (5) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSES_DROPPED : Response indication dropped due to component queue full: 6
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (5) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSES_DROPPED : Response indication dropped due to component queue full: 7
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (5) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSES_DROPPED : Response indication dropped due to component queue full: 8
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (5) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSES_DROPPED : Response indication dropped due to component queue full: 9
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (5) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSES_DROPPED : Response indication dropped due to component queue full: 10
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (0) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_DISABLED : Response indication 1 dropped because it's disabled
+EVENT: (5) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSES_DROPPED : Response indication dropped due to component queue full: 12
+[Scenario testScenario] Applying rule sendPing
+[Scenario testScenario] Applying rule badArgs
+EVENT: (6) (0:0,0) WARNING_HI: (FPManager) FP_BAD_COMMAND_ARGUMENT : Bad FP command argument 10
+EVENT: (6) (0:0,0) WARNING_HI: (FPManager) FP_BAD_COMMAND_ARGUMENT : Bad FP command argument 0
+[Scenario testScenario] Applying rule badResp
+EVENT: (7) (0:0,0) WARNING_HI: (FPManager) FP_BAD_RESPONSE : FP response command returned NOT OK for Opcode 3205
+[Scenario testScenario] Applying rule executeQueued
+EVENT: (2) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_IN_QUEUE : Response 1 placed in execution queue
+EVENT: (1) (0:0,0) WARNING_HI: (FPManager) FP_RESPONSE_DROPPED_QUEUED : Response indication 1 dropped because it's already queued
+[       OK ] Test.checkMisc (3 ms)
+[----------] 6 tests from Test (17 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 1 test case ran. (17 ms total)
+[  PASSED  ] 6 tests.

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auto-refreshing Image</title>
+    <script>
+        function refreshImage() {
+            var imgElement = document.getElementById("auto-refresh-image");
+            var imageUrl = imgElement.getAttribute('src').split('?')[0]; // Remove any existing query string
+            imgElement.setAttribute('src', imageUrl + "?timestamp=" + new Date().getTime());
+        }
+
+        setInterval(refreshImage, 200); // Refresh every 200 msec (5 Hz)
+    </script>
+</head>
+<body>
+    <img id="auto-refresh-image" src="http://127.0.0.1:8081/image" alt="Auto-refreshing Image">
+</body>
+</html>

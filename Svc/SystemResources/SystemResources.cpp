@@ -12,7 +12,7 @@
 
 #include <cmath>  //isnan()
 #include <Svc/SystemResources/SystemResources.hpp>
-#include <version.hpp>
+#include <versions/version.hpp>
 #include <FpConfig.hpp>
 
 namespace Svc {
@@ -68,7 +68,7 @@ SystemResources ::~SystemResources() {}
 // Handler implementations for user-defined typed input ports
 // ----------------------------------------------------------------------
 
-void SystemResources ::run_handler(const NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE tick_time_hz) {
+void SystemResources ::run_handler(const NATIVE_INT_TYPE portNum, U32 tick_time_hz) {
     if (m_enable) {
         Cpu();
         Mem();
@@ -89,10 +89,10 @@ void SystemResources ::ENABLE_cmdHandler(const FwOpcodeType opCode,
 }
 
 void SystemResources ::VERSION_cmdHandler(const FwOpcodeType opCode, const U32 cmdSeq) {
-    Fw::LogStringArg version_string(FRAMEWORK_VERSION);
+    Fw::LogStringArg version_string(Project::Version::FRAMEWORK_VERSION);
     this->log_ACTIVITY_LO_FRAMEWORK_VERSION(version_string);
 
-    version_string = PROJECT_VERSION;
+    version_string = Project::Version::PROJECT_VERSION;
     this->log_ACTIVITY_LO_PROJECT_VERSION(version_string);
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
 }
@@ -152,10 +152,10 @@ void SystemResources::PhysMem() {
 }
 
 void SystemResources::Version() {
-    Fw::TlmString version_string(FRAMEWORK_VERSION);
+    Fw::TlmString version_string(Project::Version::FRAMEWORK_VERSION);
     this->tlmWrite_FRAMEWORK_VERSION(version_string);
 
-    version_string= PROJECT_VERSION;
+    version_string= Project::Version::PROJECT_VERSION;
     this->tlmWrite_PROJECT_VERSION(version_string);
 }
 }  // end namespace Svc

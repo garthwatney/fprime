@@ -13,11 +13,12 @@
 #ifndef Svc_Deframer_HPP
 #define Svc_Deframer_HPP
 
+#include <DeframerCfg.hpp>
+
 #include "Svc/Deframer/DeframerComponentAc.hpp"
 #include "Svc/FramingProtocol/DeframingProtocol.hpp"
 #include "Svc/FramingProtocol/DeframingProtocolInterface.hpp"
 #include "Utils/Types/CircularBuffer.hpp"
-#include "config/DeframerCfg.hpp"
 
 namespace Svc {
 
@@ -86,7 +87,7 @@ class Deframer :
     //! Handler implementation for schedIn
     void schedIn_handler(
         const NATIVE_INT_TYPE portNum, //!< The port number
-        NATIVE_UINT_TYPE context //!< The call order
+        U32 context //!< The call order
     );
 
     // ----------------------------------------------------------------------

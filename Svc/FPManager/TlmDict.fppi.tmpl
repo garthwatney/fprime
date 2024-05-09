@@ -1,0 +1,30 @@
+     #set $id = 0
+     #for $response in $responses:
+     @ Total number of times $(response) was alerted
+     telemetry FP_$(response)AlertCount: U16 id $(id)
+
+     #set $id = $id + 1
+     #end for
+
+     #for $response in $responses:
+     @ Total numpber of times $(response) was completed
+     telemetry FP_$(response)CompleteCount: U16 id $(id)
+
+     #set $id = $id + 1
+     #end for
+
+    @ The last response that was alerted
+    telemetry FP_LastResponseAlert: U32 id $(id)
+
+    #set $id = $id + 1
+    
+    @ The last response that was completed
+    telemetry FP_LastResponseComplete: U32 id $(id)
+
+    #set $id = $id + 1
+
+    @ The enable/disable state of each response packed into a word
+    telemetry FP_ResponsePackedState: U32 id $(id)
+
+    #set $id = $id + 1
+    

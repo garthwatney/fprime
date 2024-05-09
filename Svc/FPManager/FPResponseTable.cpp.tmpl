@@ -1,0 +1,59 @@
+/**
+ * \file FPResponseTable.cpp
+ * \author Auto-coded
+ * \brief Instantiations of all the responses.
+ * and their priorities and initial state (enable/disable).
+ * In addition, tables for telemetry generation functions are auto-coded
+ *
+ *
+ * \copyright
+ * Copyright 2009-2015, by the California Institute of Technology.
+ * ALL RIGHTS RESERVED.  United States Government Sponsorship
+ * acknowledged. Any commercial use must be negotiated with the Office
+ * of Technology Transfer at the California Institute of Technology.
+ * <br /><br />
+ * This software may be subject to U.S. export control laws and
+ * regulations.  By accepting this document, the user agrees to comply
+ * with all U.S. export laws and regulations.  User has the
+ * responsibility to obtain export licenses, or other export authority
+ * as may be required before exporting such information to foreign
+ * countries or providing access to foreign persons.
+ */
+ #set responses = [x.split()[0] for x in $priorityResponses]
+
+\#include <Svc/FPManager/FPManagerImpl.hpp>
+#for $response in $responses:
+\#include <Svc/FPManager/$(response).hpp>
+#end for
+
+
+
+namespace Svc {
+
+#for $response in $responses:
+$response $response.lower();
+#end for
+
+const FPManagerImpl::ResponseTableType FPManagerImpl::responseTable[FPResponses::NUMBER_RESPONSES] = {
+#for $response in $priorityResponses:
+#set respName = $response.split()[0]
+#set respPriority = $response.split()[1]
+        { FPResponses::$respName.upper(), &$respName.lower(), RespEnableState::RID_ENABLE, $respPriority },
+#end for
+};
+
+
+const FPManagerImpl::TlmWrite_FuncPtr1 FPManagerImpl::tlmResponseIndicators[FPResponses::NUMBER_RESPONSES] = {
+#for $response in $responses:
+    &FPManagerImpl::tlmWrite_FP_$(response)AlertCount,
+#end for
+};
+
+const FPManagerImpl::TlmWrite_FuncPtr1 FPManagerImpl::tlmResponseComplete[FPResponses::NUMBER_RESPONSES] = {
+#for $response in $responses:
+    &FPManagerImpl::tlmWrite_FP_$(response)CompleteCount,
+#end for
+};
+
+}
+//

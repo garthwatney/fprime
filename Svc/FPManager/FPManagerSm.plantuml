@@ -1,0 +1,22 @@
+@startuml
+
+[*] --> IDLE
+
+state IDLE {
+}
+
+state RUNNING {
+}
+
+state c1 <<choice>>
+state c2 <<choice>>
+
+IDLE --> c1: RTI
+c1 --> IDLE: [emptyQueue()]
+c1 --> RUNNING: /startNextResponse()
+
+RUNNING --> c2: RTI
+c2 --> RUNNING: [responseRunning()]
+c2 --> IDLE: /reportResponseComplete()
+
+@enduml

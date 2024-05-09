@@ -1,0 +1,39 @@
+@startuml SequenceDiagram
+
+participant MonitorMgr
+participant rg10Hz
+participant FPManager
+participant Resp1
+participant CmdDispatcher
+
+hnote over FPManager: IDLE
+MonitorMgr -[#blue]> FPManager : Fault
+FPManager -[#red]>> Resp1 : alert()
+FPManager -[#red]>> FPManager : queue.push(Resp1)
+
+rg10Hz -[#blue]> FPManager : sched
+FPManager -[#red]>> FPManager : queue.pop()
+FPManager -[#red]>> Resp1 : start()
+hnote over FPManager: RUNNING
+
+rg10Hz -[#blue]> FPManager : sched
+FPManager -[#red]>> Resp1 : run()
+Resp1 --> FPManager : cmdBuffer
+FPManager -[#blue]> CmdDispatcher : Cmd1
+
+rg10Hz -[#blue]> FPManager : sched
+FPManager -[#red]>> Resp1 : run()
+Resp1 --> FPManager : cmdBuffer
+FPManager -[#blue]> CmdDispatcher : Cmd2
+
+rg10Hz -[#blue]> FPManager : sched
+FPManager -[#red]>> Resp1 : run()
+Resp1 --> FPManager : cmdBuffer
+FPManager -[#blue]> CmdDispatcher : Cmd3
+
+rg10Hz -> FPManager : sched
+FPManager -[#red]>> Resp1 : run()
+Resp1 --> FPManager : Complete
+hnote over FPManager: IDLE
+
+@enduml

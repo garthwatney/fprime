@@ -90,8 +90,11 @@ bre
 bsd
 bslash
 BUFFERALLOCATE
+BUFFERALLOCATIONFAILED
+BUFFERGETOUT
 BUFFERMANAGERCOMPONENTIMPLCFG
 BUFFERMGR
+BUFFERTOOSMALLFORPACKET
 BUFFQUEUEIN
 buffsize
 BUGLIST
@@ -218,7 +221,7 @@ DDDTHH
 ddl
 ddmm
 dealloc
-Debian
+debian
 deconstructor
 Deerin
 defaultgen
@@ -265,8 +268,13 @@ doxyindexer
 doxyrules
 doxysearch
 Doxywizard
+dpc
+DPCAT
+DPCATALOG
+DPCFG
 dpi
 DPMANAGER
+dps
 DPWRITER
 DRAINBUFFERS
 drv
@@ -307,6 +315,7 @@ errmsg
 ERRORCHECK
 errornum
 ert
+esb
 ethanchee
 etime
 eturn
@@ -328,6 +337,7 @@ fadvise
 FAKELOGGER
 fallocate
 fbuild
+fdp
 fdset
 FEEDNAME
 ffff
@@ -336,8 +346,11 @@ filedown
 FILEDOWNLINK
 FILEDOWNLINKCFG
 FILEID
+FILENAMESTRING
 fileopen
+FILEOPENERROR
 FILESTUBS
+FILEWRITEERROR
 fio
 Firefox
 FLDP
@@ -370,6 +383,7 @@ fsw
 fus
 FWCASSERT
 Gangianpour
+gaurav
 gbl
 gcc
 gcda
@@ -390,6 +404,7 @@ getinput
 getm
 getpid
 getquaternion
+gett
 gettime
 gettimeofday
 getty
@@ -420,6 +435,7 @@ Guire
 handcoded
 hardtoaccess
 hashvalue
+hdr
 HEADERSIZE
 headlessly
 heapifying
@@ -478,6 +494,9 @@ integertypename
 interoperate
 intlimits
 inttype
+INVALIDBUFFER
+INVALIDHEADER
+INVALIDHEADERHASH
 invisi
 ioc
 ioctl
@@ -566,8 +585,8 @@ lxml
 MACROFILE
 maincpp
 makefiles
-makeindex
 MAKEFLAGS
+makeindex
 MAKEVAR
 MALLOCALLOCATOR
 mallocator
@@ -594,12 +613,14 @@ Merewether
 methoddoc
 methodstub
 microcontrollers
+mlc
 mman
 MMAPALLOCATOR
 MML
 modbus
 MOSI
 MOVEFILE
+mozilla
 mqd
 mqueue
 Mrf
@@ -772,6 +793,12 @@ PRMDBIMPLTESTER
 PRMDBLIMPLCFG
 prmname
 probs
+PROCBUFFERSENDOUT
+PRODUCTGETIN
+PRODUCTREQUESTIN
+PRODUCTRESPONSEOUT
+PRODUCTSENDIN
+PRODUCTSENDOUT
 PROGRAMLISTING
 projectbrief
 projectlogo
@@ -840,6 +867,7 @@ relaxng
 REMOVEDIRECTORY
 REMOVEFILE
 reparse
+reprioritize
 reserializing
 resname
 resultlist
@@ -892,6 +920,7 @@ serializables
 setaffinity
 setdata
 SETFL
+setid
 setinheritsched
 SETLOGGING
 setm
@@ -921,6 +950,7 @@ sloc
 smallsat
 Smath
 SNDTIMEO
+socio
 SOCKETHELPER
 SOCKETIPDRIVER
 SOCKETREADTASK
@@ -975,6 +1005,7 @@ subpage
 subseconds
 subtargets
 suppr
+suseconds
 SVCLOGFILE
 SVCLOGFILEL
 svipc
@@ -999,6 +1030,7 @@ tcgetattr
 TCIFLUSH
 tclist
 tcomp
+tcort
 TCPCLIENT
 TCPHELPER
 tcpserver
@@ -1145,6 +1177,7 @@ WAITALL
 watney
 Wdog
 whitebox
+wikipedia
 WLE
 Wno
 WORKDIR
@@ -1152,6 +1185,7 @@ worklist
 wrs
 wsl
 wxgui
+wxy
 Xabcdefx
 xapian
 xdf
