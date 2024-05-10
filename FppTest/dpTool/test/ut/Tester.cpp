@@ -28,6 +28,7 @@ Tester::Tester()
         this->initComponents();
         this->connectPorts();
         this->component.setIdBase(ID_BASE);
+        
 }
 
 Tester::~Tester() {}
@@ -68,7 +69,7 @@ void Tester::makeComplex() {
 void Tester::makeU8Array() {
     Fw::Buffer buffer;
     FwSizeType expectedNumElts;
-    const FwSizeType dataEltSize = sizeof(FwSizeType) + DpTool::RECORD_ARRAY_SIZE * sizeof(U8);
+    const FwSizeType dataEltSize = sizeof(FwSizeStoreType) + DpTool::RECORD_ARRAY_SIZE * sizeof(U8);
     // Invoke the port and check the header
     this->component.recordTest = U8ArrayRecord;
     this->productRecvIn_InvokeAndCheckHeader(DpTool::ContainerId::Container1, dataEltSize,
@@ -82,7 +83,7 @@ void Tester::makeU8Array() {
 void Tester::makeU32Array() {
     Fw::Buffer buffer;
     FwSizeType expectedNumElts;
-    const FwSizeType dataEltSize = sizeof(FwSizeType) + DpTool::RECORD_ARRAY_SIZE * sizeof(U32);
+    const FwSizeType dataEltSize = sizeof(FwSizeStoreType) + DpTool::RECORD_ARRAY_SIZE * sizeof(U32);
 
     // Invoke the port and check the header
     this->component.recordTest = U32ArrayRecord;
@@ -97,7 +98,7 @@ void Tester::makeU32Array() {
 void Tester::makeDataArray() {
      Fw::Buffer buffer;
     FwSizeType expectedNumElts;
-    const FwSizeType dataEltSize = sizeof(FwSizeType) + DpTool::RECORD_ARRAY_SIZE * DpTool_Data::SERIALIZED_SIZE;
+    const FwSizeType dataEltSize = sizeof(FwSizeStoreType) + DpTool::RECORD_ARRAY_SIZE * DpTool_Data::SERIALIZED_SIZE;
     // Invoke the port and check the header
     this->component.recordTest = DataArrayRecord;
     this->productRecvIn_InvokeAndCheckHeader(DpTool::ContainerId::Container1, dataEltSize,

@@ -17,6 +17,7 @@ TEST(makeComplex, OK) {
     Tester tester;
     tester.makeComplex();
 }
+
 TEST(makeU8Array, OK) {
     Tester tester;
     tester.makeU8Array();
@@ -76,7 +77,6 @@ TEST(makeFppArray, OK) {
     Tester tester;
     tester.makeFppArray();
 }
-
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
