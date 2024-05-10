@@ -7,12 +7,12 @@
 #include <cstdio>
 #include <cstring>
 
-#include "FppTest/dpTool/test/ut/Tester.hpp"
+#include "Svc/DpTool/test/ut/Tester.hpp"
 #include "STest/Pick/Pick.hpp"
 #include <fstream>
 #include <iostream>
 
-namespace FppTest {
+namespace Svc {
 
 // ----------------------------------------------------------------------
 // Construction and destruction
@@ -332,8 +332,7 @@ Fw::Success::T Tester::productGet_handler(FwDpIdType id, FwSizeType size, Fw::Bu
     this->pushProductGetEntry(id, size);
     Fw::Success status = Fw::Success::FAILURE;
     FW_ASSERT(id >= ID_BASE, id, ID_BASE);
-    const FwDpIdType localId = id - ID_BASE;
     return status;
 }
 
-}  // end namespace FppTest
+}  // end namespace Svc

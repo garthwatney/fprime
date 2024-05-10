@@ -3,14 +3,14 @@
 // \brief  hpp file for DpTool component implementation class
 // ======================================================================
 
-#ifndef FppTest_DpTool_HPP
-#define FppTest_DpTool_HPP
+#ifndef Svc_DpTool_HPP
+#define Svc_DpTool_HPP
 
 #include <array>
 
-#include "FppTest/dpTool/DpToolComponentAc.hpp"
+#include "Svc/DpTool/DpToolComponentAc.hpp"
 
-namespace FppTest {
+namespace Svc {
 
   enum RecordTest {
     BoolRecord,
@@ -112,6 +112,6 @@ class DpTool : public DpToolComponentBase {
     RecordTest recordTest;
 };
 
-}  // end namespace FppTest
+}  // end namespace Svc
 
 #endif

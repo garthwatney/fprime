@@ -2,11 +2,11 @@
 // TestMain.cpp
 // ----------------------------------------------------------------------
 
-#include "FppTest/dpTool/test/ut/Tester.hpp"
+#include "Svc/DpTool/test/ut/Tester.hpp"
 #include "Fw/Test/UnitTest.hpp"
 #include "STest/Random/Random.hpp"
 
-using namespace FppTest;
+using namespace Svc;
 
 TEST(makeU32, OK) {
     Tester tester;

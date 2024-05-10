@@ -105,12 +105,17 @@ module Ref {
 
   instance typeDemo: Ref.TypeDemo base id 0x1100
 
-  instance fpManager: Svc.FPManager base id 0x0F00 \
+  instance fpManager: Svc.FPManager base id 0x1200 \
     queue size Default.QUEUE_SIZE \
     stack size Default.STACK_SIZE \
     priority 96
 
-  instance monitorMgr: Svc.MonitorMgr base id 0x0F10 \
+  instance monitorMgr: Svc.MonitorMgr base id 0x1400 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 96
+
+  instance dpTool: Svc.DpTool base id 0x1500 \
     queue size Default.QUEUE_SIZE \
     stack size Default.STACK_SIZE \
     priority 96

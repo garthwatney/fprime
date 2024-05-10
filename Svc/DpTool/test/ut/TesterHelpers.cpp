@@ -8,7 +8,7 @@
 // ======================================================================
 #include "Tester.hpp"
 
-namespace FppTest {
+namespace Svc {
 // ----------------------------------------------------------------------
 // Helper methods
 // ----------------------------------------------------------------------
@@ -38,4 +38,4 @@ void Tester ::initComponents() {
     this->component.init(Tester::TEST_INSTANCE_QUEUE_DEPTH, Tester::TEST_INSTANCE_ID);
 }
 
-}  // end namespace FppTest
+}  // end namespace Svc

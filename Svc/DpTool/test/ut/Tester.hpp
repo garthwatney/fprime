@@ -4,15 +4,15 @@
 // \brief  hpp file for DpTool test harness implementation class
 // ======================================================================
 
-#ifndef FppTest_DpTool_Tester_HPP
-#define FppTest_DpTool_Tester_HPP
+#ifndef Svc_DpTool_Tester_HPP
+#define Svc_DpTool_Tester_HPP
 
 #include "DpToolGTestBase.hpp"
-#include "FppTest/dpTool/DpTool.hpp"
+#include "Svc/DpTool/DpTool.hpp"
 #include "Fw/Dp/test/util/DpContainerHeader.hpp"
 #include "STest/Pick/Pick.hpp"
 
-namespace FppTest {
+namespace Svc {
 
 class Tester : public DpToolGTestBase {
     // ----------------------------------------------------------------------
@@ -120,6 +120,6 @@ class Tester : public DpToolGTestBase {
     DpTool component;
 };
 
-}  // end namespace FppTest
+}  // end namespace Svc
 
 #endif

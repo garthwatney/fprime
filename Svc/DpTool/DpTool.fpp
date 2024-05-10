@@ -1,4 +1,4 @@
-module FppTest {
+module Svc {
 
   @ A component for testing  data product code gen
   active component DpTool {

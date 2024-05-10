@@ -5,12 +5,12 @@
 
 #include <cstdio>
 
-#include "FppTest/dpTool/DpTool.hpp"
+#include "Svc/DpTool/DpTool.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "stdio.h"
 #include "math.h"
 
-namespace FppTest {
+namespace Svc {
 
 // ----------------------------------------------------------------------
 // Construction, initialization, and destruction
@@ -54,7 +54,7 @@ void DpTool ::dpRecv_Container1_handler(DpContainer& container, Fw::Success::T s
 
                 case ComplexRecord: {
                     DpTool_Complex dpTool_Complex;
-                    dpTool_Complex.set(FppTest::DpTool_Data(rand() & 0xFFFF), rand()); 
+                    dpTool_Complex.set(Svc::DpTool_Data(rand() & 0xFFFF), rand()); 
                     serializeStatus = container.serializeRecord_ComplexRecord(dpTool_Complex);
                     break;
                 }
@@ -88,7 +88,7 @@ void DpTool ::dpRecv_Container1_handler(DpContainer& container, Fw::Success::T s
 
                 case EnumRecord: {
                     DpTool_EnumStruct dpTool_enumStruct;
-                    dpTool_enumStruct.setstatus(FppTest::DpTool_Status::T(rand() % 3));
+                    dpTool_enumStruct.setstatus(Svc::DpTool_Status::T(rand() % 3));
                     serializeStatus = container.serializeRecord_EnumRecord(dpTool_enumStruct);
                     break;
                 }
@@ -125,10 +125,11 @@ void DpTool ::dpRecv_Container1_handler(DpContainer& container, Fw::Success::T s
 
                 case I64Record: {
                     // Generate a random 64-bit integer
-                    I32 high_part = (I32)((I32)rand() - RAND_MAX/2);
+                    I32 high_part = static_cast<I32>(rand() - RAND_MAX / 2);
+
                     I32 low_part = rand();
 
-                    I64 value = (I64)((U64)high_part << 32) | low_part;
+                    I64 value = static_cast<I64>(static_cast<U64>(high_part) << 32 | static_cast<U64>(low_part));
 
                     serializeStatus = container.serializeRecord_I64Record(value);
                     break;
@@ -169,4 +170,4 @@ void DpTool::checkContainer(const DpContainer& container, FwDpIdType localId, Fw
     FW_ASSERT(container.getBuffer().getSize() == size, container.getBuffer().getSize(), size);
 }
 
-}  // end namespace FppTest
+}  // end namespace Svc
