@@ -255,8 +255,8 @@ void Tester::schedIn_OK() {
 // ----------------------------------------------------------------------
 
 void Tester::writeBinaryFile(const char *fileName, Fw::Buffer buffer) {
-    
-     std::string fullPath = "../../../dpTool/" + std::string(fileName);
+
+     std::string fullPath = "../../../../Svc/DpTool/" + std::string(fileName);
     // Open a file in binary mode
     std::ofstream file(fullPath, std::ios::out | std::ios::binary);
     if (!file) {
