@@ -68,53 +68,53 @@ module Svc {
     # ----------------------------------------------------------------------
 
     @ Record 1
-    product record U32Record: U32 id 100
+    product record U32Record: U32 id 0
 
     @ Record 2
-    product record ComplexRecord: Complex id 200
+    product record ComplexRecord: Complex id 1
 
     @ Record 3
-    product record U8ArrayRecord: U8 array id 300
+    product record U8ArrayRecord: U8 array id 2
 
     @ Record 4
-    product record U32ArrayRecord: U32 array id 400
+    product record U32ArrayRecord: U32 array id 3
 
     @ Record 5
-    product record DataArrayRecord: Data array id 500
+    product record DataArrayRecord: Data array id 4
 
     @ Record 6
-    product record EnumRecord: EnumStruct id 600
+    product record EnumRecord: EnumStruct id 5
 
     @ Record 7
-    product record F32Record: F32 id 700
+    product record F32Record: F32 id 6
 
     @ Record 8
-    product record F64Record: F64 id 800
+    product record F64Record: F64 id 7
 
     @ Record 9
-    product record BoolRecord: bool id 900
+    product record BoolRecord: bool id 8
 
     @ Record 10
-    product record I8Record: I8 id 1000
+    product record I8Record: I8 id 9
 
     @ Record 11
-    product record I16Record: I16 id 1100
+    product record I16Record: I16 id 10
 
     @ Record 12
-    product record I32Record: I32 id 1200
+    product record I32Record: I32 id 11
 
     @ Record 13
-    product record I64Record: I64 id 1300
+    product record I64Record: I64 id 12
 
     @ Record 14
-    product record FppArrayRecord: ArrayData id 1400
+    product record FppArrayRecord: ArrayData id 13
 
     # ----------------------------------------------------------------------
     # Containers
     # ----------------------------------------------------------------------
 
     @ Container 1
-    product container Container1 id 100 default priority 10
+    product container Container1 id 14 default priority 10
 
   }
 

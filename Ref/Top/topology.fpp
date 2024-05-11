@@ -58,6 +58,7 @@ module Ref {
     instance dpMgr
     instance dpWriter
     instance dpBufferManager
+    instance dpTool
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers

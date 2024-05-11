@@ -1,6 +1,5 @@
 // ======================================================================
 // \title  DpTool/test/ut/Tester.hpp
-// \author bocchino
 // \brief  hpp file for DpTool test harness implementation class
 // ======================================================================
 
@@ -27,7 +26,7 @@ class Tester : public DpToolGTestBase {
     // Queue depth supplied to component instance under test
     static constexpr FwSizeType TEST_INSTANCE_QUEUE_DEPTH = 10;
     // The component id base
-    static constexpr FwDpIdType ID_BASE = 100;
+    static constexpr FwDpIdType ID_BASE = 0x1500;
 
     //! Construct object Tester
     //!
