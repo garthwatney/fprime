@@ -1,0 +1,35 @@
+
+                                
+@startuml CommunicationsTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "Communications"
+                        
+component [comDriver: \nDrv.TcpClient] <<passive>> as comDriver
+component [comStub: \nSvc.ComStub] <<passive>> as comStub
+component [commsBufferManager: \nSvc.BufferManager] <<passive>> as commsBufferManager
+
+comDriver -[#red]-> comStub : ready -> drvConnected
+comStub -[#black]-> comDriver : drvSendOut -> send
+comStub -[#black]-> comDriver : drvReceiveReturnOut -> recvReturnIn
+comDriver -[#red]-> comStub : recv -> drvReceiveIn
+comDriver -[#black]-> commsBufferManager : deallocate -> bufferSendIn
+comDriver -[#black]-> commsBufferManager : allocate -> bufferGetCallee
+
+@enduml

@@ -1,0 +1,101 @@
+
+                                
+@startuml TextEventsTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "TextEvents"
+                        
+component [SG3: \nRef.SignalGen] <<queued>> as SG3
+component [textLogger: \nSvc.PassiveTextLogger] <<passive>> as textLogger
+component [SG2: \nRef.SignalGen] <<queued>> as SG2
+component [rateGroup3Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup3Comp
+component [dpBufferManager: \nSvc.BufferManager] <<passive>> as dpBufferManager
+component [fileDownlink: \nSvc.FileDownlink] <<active>> as fileDownlink
+component [tcDeframer: \nSvc.Ccsds.TcDeframer] <<passive>> as tcDeframer
+component [spacePacketFramer: \nSvc.Ccsds.SpacePacketFramer] <<passive>> as spacePacketFramer
+component [dpWriter: \nSvc.DpWriter] <<active>> as dpWriter
+component [sendBuffComp: \nRef.SendBuff] <<queued>> as sendBuffComp
+component [prmDb: \nSvc.PrmDb] <<active>> as prmDb
+component [rateGroup2Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup2Comp
+component [recvBuffComp: \nRef.RecvBuff] <<passive>> as recvBuffComp
+component [SG5: \nRef.SignalGen] <<queued>> as SG5
+component [SG1: \nRef.SignalGen] <<queued>> as SG1
+component [events: \nSvc.EventManager] <<active>> as events
+component [dpCat: \nSvc.DpCatalog] <<active>> as dpCat
+component [dpMgr: \nSvc.DpManager] <<active>> as dpMgr
+component [version: \nSvc.Version] <<passive>> as version
+component [typeDemo: \nRef.TypeDemo] <<passive>> as typeDemo
+component [fileUplink: \nSvc.FileUplink] <<active>> as fileUplink
+component [frameAccumulator: \nSvc.FrameAccumulator] <<passive>> as frameAccumulator
+component [framer: \nSvc.Ccsds.TmFramer] <<passive>> as framer
+component [rateGroup1Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup1Comp
+component [apidManager: \nSvc.Ccsds.ApidManager] <<passive>> as apidManager
+component [spacePacketDeframer: \nSvc.Ccsds.SpacePacketDeframer] <<passive>> as spacePacketDeframer
+component [systemResources: \nSvc.SystemResources] <<passive>> as systemResources
+component [fprimeRouter: \nSvc.FprimeRouter] <<passive>> as fprimeRouter
+component [commsBufferManager: \nSvc.BufferManager] <<passive>> as commsBufferManager
+component [comQueue: \nSvc.ComQueue] <<active>> as comQueue
+component [pingRcvr: \nRef.PingReceiver] <<active>> as pingRcvr
+component [cmdSeq: \nSvc.CmdSequencer] <<active>> as cmdSeq
+component [fatalAdapter: \nSvc.AssertFatalAdapter] <<passive>> as fatalAdapter
+component [fileManager: \nSvc.FileManager] <<active>> as fileManager
+component [SG4: \nRef.SignalGen] <<queued>> as SG4
+component [cmdDisp: \nSvc.CommandDispatcher] <<active>> as cmdDisp
+component [dpDemo: \nRef.DpDemo] <<active>> as dpDemo
+component [health: \nSvc.Health] <<queued>> as health
+
+SG3 -[#red]-> textLogger : logTextOut -> TextLogger
+SG2 -[#red]-> textLogger : logTextOut -> TextLogger
+rateGroup3Comp -[#red]-> textLogger : LogText -> TextLogger
+dpBufferManager -[#red]-> textLogger : textEventOut -> TextLogger
+fileDownlink -[#red]-> textLogger : textEventOut -> TextLogger
+tcDeframer -[#red]-> textLogger : logTextOut -> TextLogger
+spacePacketFramer -[#red]-> textLogger : logTextOut -> TextLogger
+dpWriter -[#red]-> textLogger : textEventOut -> TextLogger
+sendBuffComp -[#red]-> textLogger : LogText -> TextLogger
+prmDb -[#red]-> textLogger : LogText -> TextLogger
+rateGroup2Comp -[#red]-> textLogger : LogText -> TextLogger
+recvBuffComp -[#red]-> textLogger : LogText -> TextLogger
+SG5 -[#red]-> textLogger : logTextOut -> TextLogger
+SG1 -[#red]-> textLogger : logTextOut -> TextLogger
+events -[#red]-> textLogger : LogText -> TextLogger
+dpCat -[#red]-> textLogger : LogText -> TextLogger
+dpMgr -[#red]-> textLogger : textEventOut -> TextLogger
+version -[#red]-> textLogger : logTextOut -> TextLogger
+typeDemo -[#red]-> textLogger : logTextOut -> TextLogger
+fileUplink -[#red]-> textLogger : LogText -> TextLogger
+frameAccumulator -[#red]-> textLogger : logTextOut -> TextLogger
+framer -[#red]-> textLogger : logTextOut -> TextLogger
+rateGroup1Comp -[#red]-> textLogger : LogText -> TextLogger
+apidManager -[#red]-> textLogger : logTextOut -> TextLogger
+spacePacketDeframer -[#red]-> textLogger : logTextOut -> TextLogger
+systemResources -[#red]-> textLogger : LogText -> TextLogger
+fprimeRouter -[#red]-> textLogger : logTextOut -> TextLogger
+commsBufferManager -[#red]-> textLogger : textEventOut -> TextLogger
+comQueue -[#red]-> textLogger : LogText -> TextLogger
+pingRcvr -[#red]-> textLogger : LogText -> TextLogger
+cmdSeq -[#red]-> textLogger : LogText -> TextLogger
+fatalAdapter -[#red]-> textLogger : LogText -> TextLogger
+fileManager -[#red]-> textLogger : LogText -> TextLogger
+SG4 -[#red]-> textLogger : logTextOut -> TextLogger
+cmdDisp -[#red]-> textLogger : LogText -> TextLogger
+dpDemo -[#red]-> textLogger : logTextOut -> TextLogger
+health -[#red]-> textLogger : LogText -> TextLogger
+
+@enduml

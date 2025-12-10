@@ -1,0 +1,43 @@
+
+                                
+@startuml UplinkTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "Uplink"
+                        
+component [fprimeRouter: \nSvc.FprimeRouter] <<passive>> as fprimeRouter
+component [commsBufferManager: \nSvc.BufferManager] <<passive>> as commsBufferManager
+component [spacePacketDeframer: \nSvc.Ccsds.SpacePacketDeframer] <<passive>> as spacePacketDeframer
+component [apidManager: \nSvc.Ccsds.ApidManager] <<passive>> as apidManager
+component [tcDeframer: \nSvc.Ccsds.TcDeframer] <<passive>> as tcDeframer
+component [frameAccumulator: \nSvc.FrameAccumulator] <<passive>> as frameAccumulator
+
+fprimeRouter -[#black]-> commsBufferManager : bufferDeallocate -> bufferSendIn
+fprimeRouter -[#black]-> commsBufferManager : bufferAllocate -> bufferGetCallee
+fprimeRouter -[#red]-> spacePacketDeframer : dataReturnOut -> dataReturnIn
+spacePacketDeframer -[#red]-> fprimeRouter : dataOut -> dataIn
+spacePacketDeframer -[#black]-> apidManager : validateApidSeqCount -> validateApidSeqCountIn
+spacePacketDeframer -[#red]-> tcDeframer : dataReturnOut -> dataReturnIn
+tcDeframer -[#black]-> spacePacketDeframer : dataOut -> dataIn
+tcDeframer -[#red]-> frameAccumulator : dataReturnOut -> dataReturnIn
+frameAccumulator -[#black]-> tcDeframer : dataOut -> dataIn
+frameAccumulator -[#black]-> commsBufferManager : bufferAllocate -> bufferGetCallee
+frameAccumulator -[#black]-> commsBufferManager : bufferDeallocate -> bufferSendIn
+
+@enduml

@@ -1,0 +1,77 @@
+
+                                
+@startuml RateGroupsTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "RateGroups"
+                        
+component [rateGroup3Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup3Comp
+component [dpMgr: \nSvc.DpManager] <<active>> as dpMgr
+component [dpWriter: \nSvc.DpWriter] <<active>> as dpWriter
+component [dpBufferManager: \nSvc.BufferManager] <<passive>> as dpBufferManager
+component [commsBufferManager: \nSvc.BufferManager] <<passive>> as commsBufferManager
+component [blockDrv: \nRef.BlockDriver] <<active>> as blockDrv
+component [SG5: \nRef.SignalGen] <<queued>> as SG5
+component [health: \nSvc.Health] <<queued>> as health
+component [rateGroupDriverComp: \nSvc.RateGroupDriver] <<passive>> as rateGroupDriverComp
+component [rateGroup2Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup2Comp
+component [fileManager: \nSvc.FileManager] <<active>> as fileManager
+component [dpDemo: \nRef.DpDemo] <<active>> as dpDemo
+component [SG4: \nRef.SignalGen] <<queued>> as SG4
+component [SG3: \nRef.SignalGen] <<queued>> as SG3
+component [sendBuffComp: \nRef.SendBuff] <<queued>> as sendBuffComp
+component [cmdSeq: \nSvc.CmdSequencer] <<active>> as cmdSeq
+component [rateGroup1Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup1Comp
+component [aggregator: \nSvc.ComAggregator] <<active>> as aggregator
+component [cmdDisp: \nSvc.CommandDispatcher] <<active>> as cmdDisp
+component [comQueue: \nSvc.ComQueue] <<active>> as comQueue
+component [systemResources: \nSvc.SystemResources] <<passive>> as systemResources
+component [fileDownlink: \nSvc.FileDownlink] <<active>> as fileDownlink
+component [tlmSend: \nSvc.TlmChan] <<active>> as tlmSend
+component [SG2: \nRef.SignalGen] <<queued>> as SG2
+component [SG1: \nRef.SignalGen] <<queued>> as SG1
+component [linuxTimer: \nSvc.LinuxTimer] <<passive>> as linuxTimer
+
+rateGroup3Comp -[#blue]-> dpMgr : RateGroupMemberOut[6] -> schedIn
+rateGroup3Comp -[#blue]-> dpWriter : RateGroupMemberOut[5] -> schedIn
+rateGroup3Comp -[#red]-> dpBufferManager : RateGroupMemberOut[4] -> schedIn
+rateGroup3Comp -[#red]-> commsBufferManager : RateGroupMemberOut[3] -> schedIn
+rateGroup3Comp -[#blue]-> blockDrv : RateGroupMemberOut[2] -> Sched
+rateGroup3Comp -[#red]-> SG5 : RateGroupMemberOut[1] -> schedIn
+rateGroup3Comp -[#red]-> health : RateGroupMemberOut[0] -> Run
+rateGroupDriverComp -[#blue]-> rateGroup3Comp : CycleOut[2] -> CycleIn
+rateGroup2Comp -[#blue]-> fileManager : RateGroupMemberOut[5] -> schedIn
+rateGroup2Comp -[#red]-> dpDemo : RateGroupMemberOut[4] -> run
+rateGroup2Comp -[#red]-> SG4 : RateGroupMemberOut[3] -> schedIn
+rateGroup2Comp -[#red]-> SG3 : RateGroupMemberOut[2] -> schedIn
+rateGroup2Comp -[#red]-> sendBuffComp : RateGroupMemberOut[1] -> SchedIn
+rateGroup2Comp -[#blue]-> cmdSeq : RateGroupMemberOut[0] -> schedIn
+rateGroupDriverComp -[#blue]-> rateGroup2Comp : CycleOut[1] -> CycleIn
+rateGroup1Comp -[#red]-> aggregator : RateGroupMemberOut[7] -> timeout
+rateGroup1Comp -[#blue]-> cmdDisp : RateGroupMemberOut[6] -> run
+rateGroup1Comp -[#blue]-> comQueue : RateGroupMemberOut[5] -> run
+rateGroup1Comp -[#black]-> systemResources : RateGroupMemberOut[4] -> run
+rateGroup1Comp -[#blue]-> fileDownlink : RateGroupMemberOut[3] -> Run
+rateGroup1Comp -[#blue]-> tlmSend : RateGroupMemberOut[2] -> Run
+rateGroup1Comp -[#red]-> SG2 : RateGroupMemberOut[1] -> schedIn
+rateGroup1Comp -[#red]-> SG1 : RateGroupMemberOut[0] -> schedIn
+rateGroupDriverComp -[#blue]-> rateGroup1Comp : CycleOut[0] -> CycleIn
+linuxTimer -[#red]-> rateGroupDriverComp : CycleOut -> CycleIn
+
+@enduml

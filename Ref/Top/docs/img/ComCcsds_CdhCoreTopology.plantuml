@@ -1,0 +1,38 @@
+
+                                
+@startuml ComCcsds_CdhCoreTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "ComCcsds_CdhCore"
+                        
+component [cmdDisp: \nSvc.CommandDispatcher] <<active>> as cmdDisp
+component [cmdSeq: \nSvc.CmdSequencer] <<active>> as cmdSeq
+component [fprimeRouter: \nSvc.FprimeRouter] <<passive>> as fprimeRouter
+component [tlmSend: \nSvc.TlmChan] <<active>> as tlmSend
+component [comQueue: \nSvc.ComQueue] <<active>> as comQueue
+component [events: \nSvc.EventManager] <<active>> as events
+
+cmdDisp -[#blue]-> cmdSeq : seqCmdStatus -> cmdResponseIn
+cmdSeq -[#blue]-> cmdDisp : comCmdOut -> seqCmdBuff
+cmdDisp -[#red]-> fprimeRouter : seqCmdStatus -> cmdResponseIn
+fprimeRouter -[#blue]-> cmdDisp : commandOut -> seqCmdBuff
+tlmSend -[#blue]-> comQueue : PktSend -> comPacketQueueIn[1]
+events -[#blue]-> comQueue : PktSend -> comPacketQueueIn[0]
+
+@enduml

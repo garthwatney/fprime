@@ -1,0 +1,69 @@
+
+                                
+@startuml HealthTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "Health"
+                        
+component [pingRcvr: \nRef.PingReceiver] <<active>> as pingRcvr
+component [health: \nSvc.Health] <<queued>> as health
+component [cmdSeq: \nSvc.CmdSequencer] <<active>> as cmdSeq
+component [events: \nSvc.EventManager] <<active>> as events
+component [cmdDisp: \nSvc.CommandDispatcher] <<active>> as cmdDisp
+component [rateGroup3Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup3Comp
+component [prmDb: \nSvc.PrmDb] <<active>> as prmDb
+component [fileDownlink: \nSvc.FileDownlink] <<active>> as fileDownlink
+component [fileManager: \nSvc.FileManager] <<active>> as fileManager
+component [rateGroup2Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup2Comp
+component [blockDrv: \nRef.BlockDriver] <<active>> as blockDrv
+component [dpCat: \nSvc.DpCatalog] <<active>> as dpCat
+component [tlmSend: \nSvc.TlmChan] <<active>> as tlmSend
+component [rateGroup1Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup1Comp
+component [fileUplink: \nSvc.FileUplink] <<active>> as fileUplink
+
+pingRcvr -[#blue]-> health : PingOut -> PingReturn
+health -[#blue]-> cmdSeq : PingSend -> pingIn
+health -[#blue]-> events : PingSend -> pingIn
+health -[#blue]-> pingRcvr : PingSend -> PingIn
+cmdDisp -[#blue]-> health : pingOut -> PingReturn
+health -[#blue]-> cmdDisp : PingSend -> pingIn
+rateGroup3Comp -[#blue]-> health : PingOut -> PingReturn
+prmDb -[#blue]-> health : pingOut -> PingReturn
+cmdSeq -[#blue]-> health : pingOut -> PingReturn
+events -[#blue]-> health : pingOut -> PingReturn
+health -[#blue]-> fileDownlink : PingSend -> pingIn
+health -[#blue]-> fileManager : PingSend -> pingIn
+rateGroup2Comp -[#blue]-> health : PingOut -> PingReturn
+fileManager -[#blue]-> health : pingOut -> PingReturn
+blockDrv -[#blue]-> health : PingOut -> PingReturn
+dpCat -[#blue]-> health : pingOut -> PingReturn
+health -[#blue]-> prmDb : PingSend -> pingIn
+tlmSend -[#blue]-> health : pingOut -> PingReturn
+fileDownlink -[#blue]-> health : pingOut -> PingReturn
+rateGroup1Comp -[#blue]-> health : PingOut -> PingReturn
+health -[#blue]-> rateGroup2Comp : PingSend -> PingIn
+health -[#blue]-> blockDrv : PingSend -> PingIn
+health -[#blue]-> tlmSend : PingSend -> pingIn
+fileUplink -[#blue]-> health : pingOut -> PingReturn
+health -[#blue]-> rateGroup1Comp : PingSend -> PingIn
+health -[#blue]-> dpCat : PingSend -> pingIn
+health -[#blue]-> fileUplink : PingSend -> pingIn
+health -[#blue]-> rateGroup3Comp : PingSend -> PingIn
+
+@enduml

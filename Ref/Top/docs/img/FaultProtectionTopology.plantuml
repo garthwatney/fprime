@@ -1,0 +1,29 @@
+
+                                
+@startuml FaultProtectionTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "FaultProtection"
+                        
+component [events: \nSvc.EventManager] <<active>> as events
+component [fatalHandler: \nSvc.FatalHandler] <<passive>> as fatalHandler
+
+events -[#red]-> fatalHandler : FatalAnnounce -> FatalReceive
+
+@enduml

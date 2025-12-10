@@ -1,0 +1,42 @@
+
+                                
+@startuml RefTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "Ref"
+                        
+component [dpMgr: \nSvc.DpManager] <<active>> as dpMgr
+component [dpDemo: \nRef.DpDemo] <<active>> as dpDemo
+component [SG1: \nRef.SignalGen] <<queued>> as SG1
+component [blockDrv: \nRef.BlockDriver] <<active>> as blockDrv
+component [recvBuffComp: \nRef.RecvBuff] <<passive>> as recvBuffComp
+component [sendBuffComp: \nRef.SendBuff] <<queued>> as sendBuffComp
+
+dpMgr -[#green]-> dpDemo : productResponseOut -> productRecvIn
+dpDemo -[#blue]-> dpMgr : productRequestOut -> productRequestIn
+dpDemo -[#blue]-> dpMgr : productSendOut -> productSendIn
+dpDemo -[#red]-> dpMgr : productGetOut -> productGetIn
+SG1 -[#blue]-> dpMgr : productSendOut -> productSendIn
+dpMgr -[#green]-> SG1 : productResponseOut -> productRecvIn
+SG1 -[#blue]-> dpMgr : productRequestOut -> productRequestIn
+SG1 -[#red]-> dpMgr : productGetOut -> productGetIn
+blockDrv -[#red]-> recvBuffComp : BufferOut -> Data
+sendBuffComp -[#blue]-> blockDrv : Data -> BufferIn
+
+@enduml

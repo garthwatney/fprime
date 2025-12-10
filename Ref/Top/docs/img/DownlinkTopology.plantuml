@@ -1,0 +1,44 @@
+
+                                
+@startuml DownlinkTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "Downlink"
+                        
+component [spacePacketFramer: \nSvc.Ccsds.SpacePacketFramer] <<passive>> as spacePacketFramer
+component [comQueue: \nSvc.ComQueue] <<active>> as comQueue
+component [aggregator: \nSvc.ComAggregator] <<active>> as aggregator
+component [framer: \nSvc.Ccsds.TmFramer] <<passive>> as framer
+component [apidManager: \nSvc.Ccsds.ApidManager] <<passive>> as apidManager
+component [commsBufferManager: \nSvc.BufferManager] <<passive>> as commsBufferManager
+
+spacePacketFramer -[#blue]-> comQueue : comStatusOut -> comStatusIn
+aggregator -[#red]-> spacePacketFramer : comStatusOut -> comStatusIn
+framer -[#red]-> aggregator : comStatusOut -> comStatusIn
+aggregator -[#red]-> spacePacketFramer : dataReturnOut -> dataReturnIn
+framer -[#red]-> aggregator : dataReturnOut -> dataReturnIn
+aggregator -[#red]-> framer : dataOut -> dataIn
+spacePacketFramer -[#red]-> aggregator : dataOut -> dataIn
+spacePacketFramer -[#black]-> apidManager : getApidSeqCount -> getApidSeqCountIn
+spacePacketFramer -[#black]-> commsBufferManager : bufferDeallocate -> bufferSendIn
+spacePacketFramer -[#black]-> commsBufferManager : bufferAllocate -> bufferGetCallee
+spacePacketFramer -[#red]-> comQueue : dataReturnOut -> dataReturnIn
+comQueue -[#red]-> spacePacketFramer : dataOut -> dataIn
+
+@enduml

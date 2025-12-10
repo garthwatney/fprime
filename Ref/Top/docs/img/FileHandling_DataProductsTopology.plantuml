@@ -1,0 +1,30 @@
+
+                                
+@startuml FileHandling_DataProductsTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "FileHandling_DataProducts"
+                        
+component [fileDownlink: \nSvc.FileDownlink] <<active>> as fileDownlink
+component [dpCat: \nSvc.DpCatalog] <<active>> as dpCat
+
+fileDownlink -[#blue]-> dpCat : FileComplete -> fileDone
+dpCat -[#black]-> fileDownlink : fileOut -> SendFile
+
+@enduml

@@ -1,0 +1,103 @@
+
+                                
+@startuml TimeTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "Time"
+                        
+component [comQueue: \nSvc.ComQueue] <<active>> as comQueue
+component [posixTime: \nSvc.PosixTime] <<passive>> as posixTime
+component [dpMgr: \nSvc.DpManager] <<active>> as dpMgr
+component [dpWriter: \nSvc.DpWriter] <<active>> as dpWriter
+component [spacePacketFramer: \nSvc.Ccsds.SpacePacketFramer] <<passive>> as spacePacketFramer
+component [fatalAdapter: \nSvc.AssertFatalAdapter] <<passive>> as fatalAdapter
+component [tcDeframer: \nSvc.Ccsds.TcDeframer] <<passive>> as tcDeframer
+component [systemResources: \nSvc.SystemResources] <<passive>> as systemResources
+component [sendBuffComp: \nRef.SendBuff] <<queued>> as sendBuffComp
+component [dpDemo: \nRef.DpDemo] <<active>> as dpDemo
+component [rateGroup2Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup2Comp
+component [recvBuffComp: \nRef.RecvBuff] <<passive>> as recvBuffComp
+component [SG3: \nRef.SignalGen] <<queued>> as SG3
+component [pingRcvr: \nRef.PingReceiver] <<active>> as pingRcvr
+component [fileUplink: \nSvc.FileUplink] <<active>> as fileUplink
+component [fileManager: \nSvc.FileManager] <<active>> as fileManager
+component [fileDownlink: \nSvc.FileDownlink] <<active>> as fileDownlink
+component [spacePacketDeframer: \nSvc.Ccsds.SpacePacketDeframer] <<passive>> as spacePacketDeframer
+component [commsBufferManager: \nSvc.BufferManager] <<passive>> as commsBufferManager
+component [SG5: \nRef.SignalGen] <<queued>> as SG5
+component [cmdSeq: \nSvc.CmdSequencer] <<active>> as cmdSeq
+component [rateGroup3Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup3Comp
+component [SG1: \nRef.SignalGen] <<queued>> as SG1
+component [dpBufferManager: \nSvc.BufferManager] <<passive>> as dpBufferManager
+component [health: \nSvc.Health] <<queued>> as health
+component [fprimeRouter: \nSvc.FprimeRouter] <<passive>> as fprimeRouter
+component [SG4: \nRef.SignalGen] <<queued>> as SG4
+component [apidManager: \nSvc.Ccsds.ApidManager] <<passive>> as apidManager
+component [events: \nSvc.EventManager] <<active>> as events
+component [SG2: \nRef.SignalGen] <<queued>> as SG2
+component [framer: \nSvc.Ccsds.TmFramer] <<passive>> as framer
+component [version: \nSvc.Version] <<passive>> as version
+component [prmDb: \nSvc.PrmDb] <<active>> as prmDb
+component [rateGroup1Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup1Comp
+component [blockDrv: \nRef.BlockDriver] <<active>> as blockDrv
+component [cmdDisp: \nSvc.CommandDispatcher] <<active>> as cmdDisp
+component [frameAccumulator: \nSvc.FrameAccumulator] <<passive>> as frameAccumulator
+component [dpCat: \nSvc.DpCatalog] <<active>> as dpCat
+component [typeDemo: \nRef.TypeDemo] <<passive>> as typeDemo
+
+comQueue -[#red]-> posixTime : Time -> timeGetPort
+dpMgr -[#red]-> posixTime : timeGetOut -> timeGetPort
+dpWriter -[#red]-> posixTime : timeGetOut -> timeGetPort
+spacePacketFramer -[#red]-> posixTime : timeCaller -> timeGetPort
+fatalAdapter -[#red]-> posixTime : Time -> timeGetPort
+tcDeframer -[#red]-> posixTime : timeCaller -> timeGetPort
+systemResources -[#red]-> posixTime : Time -> timeGetPort
+sendBuffComp -[#red]-> posixTime : Time -> timeGetPort
+dpDemo -[#red]-> posixTime : timeCaller -> timeGetPort
+rateGroup2Comp -[#red]-> posixTime : Time -> timeGetPort
+recvBuffComp -[#red]-> posixTime : Time -> timeGetPort
+SG3 -[#red]-> posixTime : timeCaller -> timeGetPort
+pingRcvr -[#red]-> posixTime : Time -> timeGetPort
+fileUplink -[#red]-> posixTime : timeCaller -> timeGetPort
+fileManager -[#red]-> posixTime : timeCaller -> timeGetPort
+fileDownlink -[#red]-> posixTime : timeCaller -> timeGetPort
+spacePacketDeframer -[#red]-> posixTime : timeCaller -> timeGetPort
+commsBufferManager -[#red]-> posixTime : timeCaller -> timeGetPort
+SG5 -[#red]-> posixTime : timeCaller -> timeGetPort
+cmdSeq -[#red]-> posixTime : timeCaller -> timeGetPort
+rateGroup3Comp -[#red]-> posixTime : Time -> timeGetPort
+SG1 -[#red]-> posixTime : timeCaller -> timeGetPort
+dpBufferManager -[#red]-> posixTime : timeCaller -> timeGetPort
+health -[#red]-> posixTime : Time -> timeGetPort
+fprimeRouter -[#red]-> posixTime : timeCaller -> timeGetPort
+SG4 -[#red]-> posixTime : timeCaller -> timeGetPort
+apidManager -[#red]-> posixTime : timeCaller -> timeGetPort
+events -[#red]-> posixTime : Time -> timeGetPort
+SG2 -[#red]-> posixTime : timeCaller -> timeGetPort
+framer -[#red]-> posixTime : timeCaller -> timeGetPort
+version -[#red]-> posixTime : timeCaller -> timeGetPort
+prmDb -[#red]-> posixTime : Time -> timeGetPort
+rateGroup1Comp -[#red]-> posixTime : Time -> timeGetPort
+blockDrv -[#red]-> posixTime : Time -> timeGetPort
+cmdDisp -[#red]-> posixTime : Time -> timeGetPort
+frameAccumulator -[#red]-> posixTime : timeCaller -> timeGetPort
+dpCat -[#red]-> posixTime : Time -> timeGetPort
+typeDemo -[#red]-> posixTime : timeCaller -> timeGetPort
+
+@enduml

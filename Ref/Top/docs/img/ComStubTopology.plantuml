@@ -1,0 +1,34 @@
+
+                                
+@startuml ComStubTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "ComStub"
+                        
+component [frameAccumulator: \nSvc.FrameAccumulator] <<passive>> as frameAccumulator
+component [comStub: \nSvc.ComStub] <<passive>> as comStub
+component [framer: \nSvc.Ccsds.TmFramer] <<passive>> as framer
+
+frameAccumulator -[#red]-> comStub : dataReturnOut -> dataReturnIn
+comStub -[#black]-> frameAccumulator : dataOut -> dataIn
+comStub -[#red]-> framer : comStatusOut -> comStatusIn
+comStub -[#red]-> framer : dataReturnOut -> dataReturnIn
+framer -[#red]-> comStub : dataOut -> dataIn
+
+@enduml

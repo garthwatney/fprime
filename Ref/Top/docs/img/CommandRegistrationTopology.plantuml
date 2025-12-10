@@ -1,0 +1,70 @@
+
+                                
+@startuml CommandRegistrationTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "CommandRegistration"
+                        
+component [prmDb: \nSvc.PrmDb] <<active>> as prmDb
+component [cmdDisp: \nSvc.CommandDispatcher] <<active>> as cmdDisp
+component [cmdSeq: \nSvc.CmdSequencer] <<active>> as cmdSeq
+component [SG2: \nRef.SignalGen] <<queued>> as SG2
+component [events: \nSvc.EventManager] <<active>> as events
+component [SG4: \nRef.SignalGen] <<queued>> as SG4
+component [typeDemo: \nRef.TypeDemo] <<passive>> as typeDemo
+component [health: \nSvc.Health] <<queued>> as health
+component [sendBuffComp: \nRef.SendBuff] <<queued>> as sendBuffComp
+component [dpCat: \nSvc.DpCatalog] <<active>> as dpCat
+component [SG1: \nRef.SignalGen] <<queued>> as SG1
+component [dpMgr: \nSvc.DpManager] <<active>> as dpMgr
+component [dpWriter: \nSvc.DpWriter] <<active>> as dpWriter
+component [SG3: \nRef.SignalGen] <<queued>> as SG3
+component [fileDownlink: \nSvc.FileDownlink] <<active>> as fileDownlink
+component [dpDemo: \nRef.DpDemo] <<active>> as dpDemo
+component [recvBuffComp: \nRef.RecvBuff] <<passive>> as recvBuffComp
+component [SG5: \nRef.SignalGen] <<queued>> as SG5
+component [systemResources: \nSvc.SystemResources] <<passive>> as systemResources
+component [pingRcvr: \nRef.PingReceiver] <<active>> as pingRcvr
+component [version: \nSvc.Version] <<passive>> as version
+component [fileManager: \nSvc.FileManager] <<active>> as fileManager
+
+prmDb -[#black]-> cmdDisp : CmdReg -> compCmdReg
+cmdSeq -[#black]-> cmdDisp : cmdRegOut -> compCmdReg
+SG2 -[#black]-> cmdDisp : cmdRegOut -> compCmdReg
+events -[#black]-> cmdDisp : CmdReg -> compCmdReg
+SG4 -[#black]-> cmdDisp : cmdRegOut -> compCmdReg
+cmdDisp -[#black]-> cmdDisp : CmdReg -> compCmdReg
+typeDemo -[#black]-> cmdDisp : cmdRegOut -> compCmdReg
+health -[#black]-> cmdDisp : CmdReg -> compCmdReg
+sendBuffComp -[#black]-> cmdDisp : CmdReg -> compCmdReg
+dpCat -[#black]-> cmdDisp : CmdReg -> compCmdReg
+SG1 -[#black]-> cmdDisp : cmdRegOut -> compCmdReg
+dpMgr -[#black]-> cmdDisp : cmdRegIn -> compCmdReg
+dpWriter -[#black]-> cmdDisp : cmdRegIn -> compCmdReg
+SG3 -[#black]-> cmdDisp : cmdRegOut -> compCmdReg
+fileDownlink -[#black]-> cmdDisp : cmdRegOut -> compCmdReg
+dpDemo -[#black]-> cmdDisp : cmdRegOut -> compCmdReg
+recvBuffComp -[#black]-> cmdDisp : CmdReg -> compCmdReg
+SG5 -[#black]-> cmdDisp : cmdRegOut -> compCmdReg
+systemResources -[#black]-> cmdDisp : CmdReg -> compCmdReg
+pingRcvr -[#black]-> cmdDisp : CmdReg -> compCmdReg
+version -[#black]-> cmdDisp : cmdRegOut -> compCmdReg
+fileManager -[#black]-> cmdDisp : cmdRegOut -> compCmdReg
+
+@enduml

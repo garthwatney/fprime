@@ -1,0 +1,51 @@
+
+                                
+@startuml ParametersTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "Parameters"
+                        
+component [tcDeframer: \nSvc.Ccsds.TcDeframer] <<passive>> as tcDeframer
+component [prmDb: \nSvc.PrmDb] <<active>> as prmDb
+component [sendBuffComp: \nRef.SendBuff] <<queued>> as sendBuffComp
+component [spacePacketDeframer: \nSvc.Ccsds.SpacePacketDeframer] <<passive>> as spacePacketDeframer
+component [framer: \nSvc.Ccsds.TmFramer] <<passive>> as framer
+component [typeDemo: \nRef.TypeDemo] <<passive>> as typeDemo
+component [recvBuffComp: \nRef.RecvBuff] <<passive>> as recvBuffComp
+component [dpDemo: \nRef.DpDemo] <<active>> as dpDemo
+component [spacePacketFramer: \nSvc.Ccsds.SpacePacketFramer] <<passive>> as spacePacketFramer
+
+tcDeframer -[#black]-> prmDb : prmGetOut -> getPrm
+sendBuffComp -[#blue]-> prmDb : ParamSet -> setPrm
+spacePacketDeframer -[#black]-> prmDb : prmGetOut -> getPrm
+framer -[#blue]-> prmDb : prmSetOut -> setPrm
+typeDemo -[#black]-> prmDb : prmGetOut -> getPrm
+recvBuffComp -[#black]-> prmDb : ParamGet -> getPrm
+typeDemo -[#blue]-> prmDb : prmSetOut -> setPrm
+dpDemo -[#blue]-> prmDb : prmSetOut -> setPrm
+framer -[#black]-> prmDb : prmGetOut -> getPrm
+spacePacketDeframer -[#blue]-> prmDb : prmSetOut -> setPrm
+sendBuffComp -[#black]-> prmDb : ParamGet -> getPrm
+dpDemo -[#black]-> prmDb : prmGetOut -> getPrm
+spacePacketFramer -[#blue]-> prmDb : prmSetOut -> setPrm
+tcDeframer -[#blue]-> prmDb : prmSetOut -> setPrm
+recvBuffComp -[#blue]-> prmDb : ParamSet -> setPrm
+spacePacketFramer -[#black]-> prmDb : prmGetOut -> getPrm
+
+@enduml

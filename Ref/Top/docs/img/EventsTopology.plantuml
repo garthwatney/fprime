@@ -1,0 +1,100 @@
+
+                                
+@startuml EventsTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "Events"
+                        
+component [pingRcvr: \nRef.PingReceiver] <<active>> as pingRcvr
+component [events: \nSvc.EventManager] <<active>> as events
+component [sendBuffComp: \nRef.SendBuff] <<queued>> as sendBuffComp
+component [fatalAdapter: \nSvc.AssertFatalAdapter] <<passive>> as fatalAdapter
+component [SG5: \nRef.SignalGen] <<queued>> as SG5
+component [systemResources: \nSvc.SystemResources] <<passive>> as systemResources
+component [rateGroup3Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup3Comp
+component [spacePacketDeframer: \nSvc.Ccsds.SpacePacketDeframer] <<passive>> as spacePacketDeframer
+component [fprimeRouter: \nSvc.FprimeRouter] <<passive>> as fprimeRouter
+component [rateGroup1Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup1Comp
+component [dpBufferManager: \nSvc.BufferManager] <<passive>> as dpBufferManager
+component [fileUplink: \nSvc.FileUplink] <<active>> as fileUplink
+component [framer: \nSvc.Ccsds.TmFramer] <<passive>> as framer
+component [fileDownlink: \nSvc.FileDownlink] <<active>> as fileDownlink
+component [dpCat: \nSvc.DpCatalog] <<active>> as dpCat
+component [recvBuffComp: \nRef.RecvBuff] <<passive>> as recvBuffComp
+component [SG2: \nRef.SignalGen] <<queued>> as SG2
+component [frameAccumulator: \nSvc.FrameAccumulator] <<passive>> as frameAccumulator
+component [apidManager: \nSvc.Ccsds.ApidManager] <<passive>> as apidManager
+component [prmDb: \nSvc.PrmDb] <<active>> as prmDb
+component [dpMgr: \nSvc.DpManager] <<active>> as dpMgr
+component [health: \nSvc.Health] <<queued>> as health
+component [SG3: \nRef.SignalGen] <<queued>> as SG3
+component [typeDemo: \nRef.TypeDemo] <<passive>> as typeDemo
+component [rateGroup2Comp: \nSvc.ActiveRateGroup] <<active>> as rateGroup2Comp
+component [comQueue: \nSvc.ComQueue] <<active>> as comQueue
+component [version: \nSvc.Version] <<passive>> as version
+component [SG1: \nRef.SignalGen] <<queued>> as SG1
+component [cmdSeq: \nSvc.CmdSequencer] <<active>> as cmdSeq
+component [dpWriter: \nSvc.DpWriter] <<active>> as dpWriter
+component [dpDemo: \nRef.DpDemo] <<active>> as dpDemo
+component [spacePacketFramer: \nSvc.Ccsds.SpacePacketFramer] <<passive>> as spacePacketFramer
+component [tcDeframer: \nSvc.Ccsds.TcDeframer] <<passive>> as tcDeframer
+component [SG4: \nRef.SignalGen] <<queued>> as SG4
+component [commsBufferManager: \nSvc.BufferManager] <<passive>> as commsBufferManager
+component [fileManager: \nSvc.FileManager] <<active>> as fileManager
+component [cmdDisp: \nSvc.CommandDispatcher] <<active>> as cmdDisp
+
+pingRcvr -[#red]-> events : Log -> LogRecv
+sendBuffComp -[#red]-> events : Log -> LogRecv
+fatalAdapter -[#red]-> events : Log -> LogRecv
+SG5 -[#red]-> events : logOut -> LogRecv
+events -[#red]-> events : Log -> LogRecv
+systemResources -[#red]-> events : Log -> LogRecv
+rateGroup3Comp -[#red]-> events : Log -> LogRecv
+spacePacketDeframer -[#red]-> events : logOut -> LogRecv
+fprimeRouter -[#red]-> events : logOut -> LogRecv
+rateGroup1Comp -[#red]-> events : Log -> LogRecv
+dpBufferManager -[#red]-> events : eventOut -> LogRecv
+fileUplink -[#red]-> events : eventOut -> LogRecv
+framer -[#red]-> events : logOut -> LogRecv
+fileDownlink -[#red]-> events : eventOut -> LogRecv
+dpCat -[#red]-> events : Log -> LogRecv
+recvBuffComp -[#red]-> events : Log -> LogRecv
+SG2 -[#red]-> events : logOut -> LogRecv
+frameAccumulator -[#red]-> events : logOut -> LogRecv
+apidManager -[#red]-> events : logOut -> LogRecv
+prmDb -[#red]-> events : Log -> LogRecv
+dpMgr -[#red]-> events : eventOut -> LogRecv
+health -[#red]-> events : Log -> LogRecv
+SG3 -[#red]-> events : logOut -> LogRecv
+typeDemo -[#red]-> events : logOut -> LogRecv
+rateGroup2Comp -[#red]-> events : Log -> LogRecv
+comQueue -[#red]-> events : Log -> LogRecv
+version -[#red]-> events : logOut -> LogRecv
+SG1 -[#red]-> events : logOut -> LogRecv
+cmdSeq -[#red]-> events : logOut -> LogRecv
+dpWriter -[#red]-> events : eventOut -> LogRecv
+dpDemo -[#red]-> events : logOut -> LogRecv
+spacePacketFramer -[#red]-> events : logOut -> LogRecv
+tcDeframer -[#red]-> events : logOut -> LogRecv
+SG4 -[#red]-> events : logOut -> LogRecv
+commsBufferManager -[#red]-> events : eventOut -> LogRecv
+fileManager -[#red]-> events : eventOut -> LogRecv
+cmdDisp -[#red]-> events : Log -> LogRecv
+
+@enduml

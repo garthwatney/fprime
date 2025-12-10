@@ -1,0 +1,70 @@
+
+                                
+@startuml CommandResponseTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "CommandResponse"
+                        
+component [SG5: \nRef.SignalGen] <<queued>> as SG5
+component [cmdDisp: \nSvc.CommandDispatcher] <<active>> as cmdDisp
+component [events: \nSvc.EventManager] <<active>> as events
+component [pingRcvr: \nRef.PingReceiver] <<active>> as pingRcvr
+component [dpCat: \nSvc.DpCatalog] <<active>> as dpCat
+component [dpMgr: \nSvc.DpManager] <<active>> as dpMgr
+component [sendBuffComp: \nRef.SendBuff] <<queued>> as sendBuffComp
+component [dpDemo: \nRef.DpDemo] <<active>> as dpDemo
+component [SG2: \nRef.SignalGen] <<queued>> as SG2
+component [fileManager: \nSvc.FileManager] <<active>> as fileManager
+component [systemResources: \nSvc.SystemResources] <<passive>> as systemResources
+component [SG1: \nRef.SignalGen] <<queued>> as SG1
+component [typeDemo: \nRef.TypeDemo] <<passive>> as typeDemo
+component [recvBuffComp: \nRef.RecvBuff] <<passive>> as recvBuffComp
+component [health: \nSvc.Health] <<queued>> as health
+component [fileDownlink: \nSvc.FileDownlink] <<active>> as fileDownlink
+component [SG3: \nRef.SignalGen] <<queued>> as SG3
+component [dpWriter: \nSvc.DpWriter] <<active>> as dpWriter
+component [version: \nSvc.Version] <<passive>> as version
+component [cmdSeq: \nSvc.CmdSequencer] <<active>> as cmdSeq
+component [prmDb: \nSvc.PrmDb] <<active>> as prmDb
+component [SG4: \nRef.SignalGen] <<queued>> as SG4
+
+SG5 -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+events -[#blue]-> cmdDisp : CmdStatus -> compCmdStat
+pingRcvr -[#blue]-> cmdDisp : CmdStatus -> compCmdStat
+dpCat -[#blue]-> cmdDisp : CmdStatus -> compCmdStat
+dpMgr -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+sendBuffComp -[#blue]-> cmdDisp : CmdStatus -> compCmdStat
+dpDemo -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+SG2 -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+fileManager -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+systemResources -[#blue]-> cmdDisp : CmdStatus -> compCmdStat
+SG1 -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+typeDemo -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+recvBuffComp -[#blue]-> cmdDisp : CmdStatus -> compCmdStat
+health -[#blue]-> cmdDisp : CmdStatus -> compCmdStat
+cmdDisp -[#blue]-> cmdDisp : CmdStatus -> compCmdStat
+fileDownlink -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+SG3 -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+dpWriter -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+version -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+cmdSeq -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+prmDb -[#blue]-> cmdDisp : CmdStatus -> compCmdStat
+SG4 -[#blue]-> cmdDisp : cmdResponseOut -> compCmdStat
+
+@enduml

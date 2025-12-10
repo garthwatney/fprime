@@ -1,0 +1,32 @@
+
+                                
+@startuml DataProductsTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "DataProducts"
+                        
+component [dpWriter: \nSvc.DpWriter] <<active>> as dpWriter
+component [dpBufferManager: \nSvc.BufferManager] <<passive>> as dpBufferManager
+component [dpMgr: \nSvc.DpManager] <<active>> as dpMgr
+
+dpWriter -[#black]-> dpBufferManager : deallocBufferSendOut -> bufferSendIn
+dpMgr -[#blue]-> dpWriter : productSendOut[0] -> bufferSendIn
+dpMgr -[#black]-> dpBufferManager : bufferGetOut[0] -> bufferGetCallee
+
+@enduml

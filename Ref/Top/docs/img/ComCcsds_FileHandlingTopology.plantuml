@@ -1,0 +1,34 @@
+
+                                
+@startuml ComCcsds_FileHandlingTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "ComCcsds_FileHandling"
+                        
+component [fileUplink: \nSvc.FileUplink] <<active>> as fileUplink
+component [fprimeRouter: \nSvc.FprimeRouter] <<passive>> as fprimeRouter
+component [comQueue: \nSvc.ComQueue] <<active>> as comQueue
+component [fileDownlink: \nSvc.FileDownlink] <<active>> as fileDownlink
+
+fileUplink -[#red]-> fprimeRouter : bufferSendOut -> fileBufferReturnIn
+fprimeRouter -[#blue]-> fileUplink : fileOut -> bufferSendIn
+comQueue -[#blue]-> fileDownlink : bufferReturnOut[0] -> bufferReturn
+fileDownlink -[#blue]-> comQueue : bufferSendOut -> bufferQueueIn[0]
+
+@enduml

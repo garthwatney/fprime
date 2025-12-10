@@ -1,0 +1,2 @@
+To generate the topology diagrams:
+/home/watney/visar-fsw/lib/TopologyDiagramTool/genTopologyDiagrams.py

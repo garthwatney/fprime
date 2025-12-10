@@ -1,0 +1,70 @@
+
+                                
+@startuml CommandTopology
+left to right direction
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+
+                        
+skinparam component<<active>> {
+    BackgroundColor Gold
+    BorderColor Black
+}
+skinparam component<<passive>> {
+    BackgroundColor Wheat
+    BorderColor Black
+}
+skinparam component<<queued>> {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+title "Command"
+                        
+component [cmdDisp: \nSvc.CommandDispatcher] <<active>> as cmdDisp
+component [health: \nSvc.Health] <<queued>> as health
+component [events: \nSvc.EventManager] <<active>> as events
+component [dpDemo: \nRef.DpDemo] <<active>> as dpDemo
+component [dpCat: \nSvc.DpCatalog] <<active>> as dpCat
+component [SG2: \nRef.SignalGen] <<queued>> as SG2
+component [pingRcvr: \nRef.PingReceiver] <<active>> as pingRcvr
+component [sendBuffComp: \nRef.SendBuff] <<queued>> as sendBuffComp
+component [recvBuffComp: \nRef.RecvBuff] <<passive>> as recvBuffComp
+component [cmdSeq: \nSvc.CmdSequencer] <<active>> as cmdSeq
+component [fileManager: \nSvc.FileManager] <<active>> as fileManager
+component [dpWriter: \nSvc.DpWriter] <<active>> as dpWriter
+component [SG3: \nRef.SignalGen] <<queued>> as SG3
+component [SG1: \nRef.SignalGen] <<queued>> as SG1
+component [dpMgr: \nSvc.DpManager] <<active>> as dpMgr
+component [prmDb: \nSvc.PrmDb] <<active>> as prmDb
+component [fileDownlink: \nSvc.FileDownlink] <<active>> as fileDownlink
+component [SG5: \nRef.SignalGen] <<queued>> as SG5
+component [typeDemo: \nRef.TypeDemo] <<passive>> as typeDemo
+component [SG4: \nRef.SignalGen] <<queued>> as SG4
+component [systemResources: \nSvc.SystemResources] <<passive>> as systemResources
+component [version: \nSvc.Version] <<passive>> as version
+
+cmdDisp -[#green]-> health : compCmdSend -> CmdDisp
+cmdDisp -[#green]-> events : compCmdSend -> CmdDisp
+cmdDisp -[#green]-> dpDemo : compCmdSend -> cmdIn
+cmdDisp -[#green]-> dpCat : compCmdSend -> CmdDisp
+cmdDisp -[#green]-> cmdDisp : compCmdSend -> CmdDisp
+cmdDisp -[#green]-> SG2 : compCmdSend -> cmdIn
+cmdDisp -[#green]-> pingRcvr : compCmdSend -> CmdDisp
+cmdDisp -[#green]-> sendBuffComp : compCmdSend -> CmdDisp
+cmdDisp -[#green]-> recvBuffComp : compCmdSend -> CmdDisp
+cmdDisp -[#green]-> cmdSeq : compCmdSend -> cmdIn
+cmdDisp -[#green]-> fileManager : compCmdSend -> cmdIn
+cmdDisp -[#green]-> dpWriter : compCmdSend -> cmdIn
+cmdDisp -[#green]-> SG3 : compCmdSend -> cmdIn
+cmdDisp -[#green]-> SG1 : compCmdSend -> cmdIn
+cmdDisp -[#green]-> dpMgr : compCmdSend -> cmdIn
+cmdDisp -[#green]-> prmDb : compCmdSend -> CmdDisp
+cmdDisp -[#green]-> fileDownlink : compCmdSend -> cmdIn
+cmdDisp -[#green]-> SG5 : compCmdSend -> cmdIn
+cmdDisp -[#green]-> typeDemo : compCmdSend -> cmdIn
+cmdDisp -[#green]-> SG4 : compCmdSend -> cmdIn
+cmdDisp -[#green]-> systemResources : compCmdSend -> CmdDisp
+cmdDisp -[#green]-> version : compCmdSend -> cmdIn
+
+@enduml
